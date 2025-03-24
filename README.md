@@ -7,6 +7,7 @@ Circul’Art est une plateforme dédiée à la location de matériels culturels 
 - [Migrations avec TypeORM](docs/migrations.md)
 - [Sauvegarde et Restauration de la base de données](docs/sauvegarde-restauration.md)
 - [Gestion des Dépendances](docs/gestion-dependances.md)
+- [Hooks Git avec Husky](docs/hooks-git.md)
 
 ## Accès aux Services
 
