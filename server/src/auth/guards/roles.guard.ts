@@ -14,7 +14,7 @@ interface Role {
 }
 
 interface UserWithRoles {
-  id: string;
+  id: number;
   roles: Role[];
 }
 
