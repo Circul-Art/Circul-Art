@@ -261,7 +261,7 @@
     </header>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { ref, onBeforeUnmount, onMounted } from 'vue';
 import { useAuthStore } from '../stores/auth';
 import { useRouter } from 'vue-router';
@@ -270,18 +270,18 @@ const authStore = useAuthStore();
 const router = useRouter();
 const mobileMenuOpen = ref(false);
 const profileMenuOpen = ref(false);
-const profileMenuContainer = ref(null);
+const profileMenuContainer = ref<HTMLElement | null>(null);
 
 function toggleProfileMenu() {
     profileMenuOpen.value = !profileMenuOpen.value;
 }
 
 // Ferme le menu si on clique ailleurs sur la page
-function handleClickOutside(event) {
+function handleClickOutside(event: MouseEvent) {
     if (
         profileMenuOpen.value &&
         profileMenuContainer.value &&
-        !profileMenuContainer.value.contains(event.target)
+        !profileMenuContainer.value.contains(event.target as Node)
     ) {
         profileMenuOpen.value = false;
     }
