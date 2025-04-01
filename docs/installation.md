@@ -69,6 +69,15 @@ Avant de commencer, assurez-vous d'avoir installé :
   - Mot de passe : `admin`
   - Connecté à `db`.
 
+- **mailtrap** :
+  - Service de capture d'emails pour les tests de développement.
+  - Interface web exposée sur le port `1080`.
+  - Serveur SMTP exposé sur le port `1025`.
+  - Identifiant et mot de passe pour l'interface web : `mailtrap`
+  - Capture tous les emails envoyés par l'application sans les transmettre aux destinataires réels.
+  - Permet de visualiser et tester les templates d'emails dans un environnement sécurisé.
+  - Utilisé par le backend pour simuler l'envoi d'emails (réinitialisation de mot de passe, confirmations, etc.).
+
 ### Volumes
 - `db_data` : Stocke les données PostgreSQL de manière persistante.
 - `pgadmin_data` : Stocke la configuration et les données de pgAdmin.

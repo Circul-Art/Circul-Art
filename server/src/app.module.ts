@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { TestController } from './test.controller';
 import { ConfigModule } from '@nestjs/config';
+import { EmailModule } from './utils/email/email.module';
 import { UsersModule } from './users/users.module';
 import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -20,9 +21,11 @@ import { join } from 'path';
       migrations: [join(__dirname, '..', 'migrations', '**', '*{.ts,.js}')],
       migrationsTableName: 'migrations',
     }),
+    EmailModule,
     UsersModule,
+    AuthModule,
   ],
-  controllers: [TestController],
+  controllers: [],
   providers: [],
 })
 export class AppModule {}
