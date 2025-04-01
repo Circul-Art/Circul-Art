@@ -4,15 +4,11 @@ Le projet utilise TypeORM pour gérer les migrations de base de données, ce qui
 
 ## Configuration des migrations
 
-En environnement de développement (NODE_ENV différent de 'production') :
-
-- La synchronisation automatique est activée (synchronize: true)
-- Les changements dans les entités sont appliqués automatiquement à la base de données
-
-En environnement de production (NODE_ENV=production) :
+Pour tous les environnements (développement et production) :
 
 - La synchronisation automatique est désactivée (synchronize: false)
-- Seules les migrations explicites peuvent modifier le schéma de la base de données
+- Toutes les modifications de schéma se font exclusivement via des migrations
+- Cette approche garantit une cohérence entre les environnements et un meilleur contrôle des changements
 
 ## Commandes pour les migrations
 
@@ -57,13 +53,16 @@ Chaque fichier de migration contient deux méthodes :
 
 ## Workflow de développement recommandé
 
-1. Développez en local avec NODE_ENV=development pour bénéficier de la synchronisation automatique
-2. Une fois vos modifications d'entités stabilisées, générez une migration :
+1. Modifiez vos entités selon les besoins du développement
+2. Générez une migration pour appliquer ces changements :
 ```
 docker compose exec backend npm run migration:generate --name=DescriptionDesChangements
 ```
 3. Examinez le fichier de migration généré pour vous assurer qu'il reflète bien vos intentions
-4. Testez l'application et l'exécution de la migration dans un environnement similaire à la production
+4. Exécutez la migration pour appliquer les changements à votre base de données:
+```
+docker compose exec backend npm run migration:run
+```
 5. Committez le fichier de migration avec votre code
 
 ## Déploiement en production

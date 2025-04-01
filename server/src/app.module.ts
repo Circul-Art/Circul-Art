@@ -17,7 +17,7 @@ import { AuthModule } from './auth/auth.module';
       password: process.env.DB_PASSWORD || 'postgres',
       database: process.env.DB_DATABASE || 'circul-art',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: process.env.NODE_ENV !== 'production',
+      synchronize: false,
       migrations: [join(__dirname, '..', 'migrations', '**', '*{.ts,.js}')],
       migrationsTableName: 'migrations',
     }),
