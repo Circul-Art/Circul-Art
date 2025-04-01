@@ -4,7 +4,7 @@ import { Strategy } from 'passport-local';
 import { AuthService } from '../auth.service';
 
 interface ValidatedUser {
-  id: string;
+  id: number;
   roles: Array<{ name: string }>;
   isVerified: boolean;
 }
@@ -15,7 +15,7 @@ function isValidUser(obj: unknown): obj is ValidatedUser {
   const candidate = obj as Partial<ValidatedUser>;
 
   return (
-    typeof candidate.id === 'string' &&
+    typeof candidate.id === 'number' &&
     Array.isArray(candidate.roles) &&
     typeof candidate.isVerified === 'boolean'
   );

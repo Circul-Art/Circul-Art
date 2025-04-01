@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { PassportSerializer } from '@nestjs/passport';
 
 interface UserEntity {
-  id: string;
+  id: number;
   roles: Array<{ name: string }>;
   isVerified: boolean;
 }
 
 interface SerializedUser {
-  id: string;
+  id: number;
   roles: string[];
   isVerified: boolean;
 }
