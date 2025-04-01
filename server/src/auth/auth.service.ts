@@ -43,7 +43,7 @@ export class AuthService {
     return { message: 'Connexion réussie' };
   }
 
-  async getProfile(userId: string) {
+  async getProfile(userId: number) {
     const user = await this.usersService.findOne(userId);
 
     return {

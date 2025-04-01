@@ -142,7 +142,7 @@ export class UsersService {
     }
   }
 
-  async findOne(id: string): Promise<User> {
+  async findOne(id: number): Promise<User> {
     const user = await this.usersRepository.findOne({
       where: { id },
     });

@@ -46,7 +46,7 @@ export enum SecurityActionType {
 
 // Interface pour le payload du token
 interface SecurityTokenPayload {
-  userId: string;
+  userId: number;
   actionType: SecurityActionType;
 }
 
@@ -345,7 +345,7 @@ export class UserSecurityService {
 
   // Génère un token JWT
   private generateToken(
-    userId: string,
+    userId: number,
     actionType: SecurityActionType,
   ): string {
     if (!this.JWT_SECRET)
