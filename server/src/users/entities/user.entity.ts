@@ -13,11 +13,11 @@ import { Role } from './role.entity';
 @Entity()
 export class User {
   @ApiProperty({
-    example: 'f47ac10b-58cc-4372-a567-0e02b2c3d479',
-    description: 'Identifiant unique (UUID)',
+    example: 1,
+    description: 'Identifiant unique (auto-incrémenté)',
   })
-  @PrimaryGeneratedColumn('uuid')
-  id: string;
+  @PrimaryGeneratedColumn()
+  id: number;
 
   @ApiProperty({ example: 'Doe', description: 'Nom de famille' })
   @Column({ length: 50 })
