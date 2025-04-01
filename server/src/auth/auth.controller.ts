@@ -22,7 +22,7 @@ import { Session, SessionData } from 'express-session';
 
 interface RequestWithUser extends ExpressRequest {
   user: {
-    id: string;
+    id: number;
     roles: any[];
     estVerifie: boolean;
   };
