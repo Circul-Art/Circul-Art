@@ -25,7 +25,7 @@ Avant de commencer, assurez-vous d'avoir installé :
    DB_USERNAME=postgres
    DB_PASSWORD=postgres
    DB_DATABASE=circul-art
-   NODE_ENV=development
+   COOKIE_SECURE=false
    ```
 
 3. **Lancer l'application avec Docker Compose** :

@@ -35,7 +35,7 @@ async function bootstrap() {
       name: cookieName,
       cookie: {
         maxAge: 3600000, // 1 heure en millisecondes
-        secure: process.env.NODE_ENV === 'production', // Utiliser HTTPS en production
+        secure: process.env.COOKIE_SECURE === 'true', // Utiliser HTTPS en production
         httpOnly: true,
         sameSite: 'lax',
       },

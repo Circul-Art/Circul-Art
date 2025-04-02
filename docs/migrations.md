@@ -67,9 +67,7 @@ docker compose exec backend npm run migration:run
 
 ## Déploiement en production
 
-En production, les migrations sont exécutées automatiquement au démarrage de l'application grâce à la configuration dans app.module.ts, qui utilise migrationsRun: true lorsque NODE_ENV=production.
-
-Si vous préférez exécuter les migrations manuellement avant de démarrer l'application (approche recommandée pour plus de contrôle), vous pouvez modifier le workflow GitHub Actions ou exécuter la commande suivante sur votre serveur :
+Les migrations sont exécutées automatiquement grâce au workflow GitHub Actions sinon vous pouvez exécuter la commande suivante sur votre serveur :
 
 ```
 cd /chemin/vers/circul-art/server && npm run migration:run
