@@ -210,8 +210,11 @@ async function handleLogin() {
             router.push('/');
         } else {
             const errorText = authStore.error as string | null;
+
             if (errorText && errorText.includes("n'est pas vérifié")) {
                 formError.value = userErrorMessages.apiErrors[401];
+            } else if (errorText && errorText.includes('Trop de tentatives')) {
+                formError.value = userErrorMessages.apiErrors[429];
             } else {
                 formError.value = userErrorMessages.auth.invalidCredentials;
             }

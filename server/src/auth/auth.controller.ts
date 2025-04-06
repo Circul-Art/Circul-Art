@@ -5,6 +5,7 @@ import {
   Request,
   Get,
   Body,
+  Res,
 } from '@nestjs/common';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { AuthenticatedGuard } from './guards/authenticated.guard';
@@ -17,8 +18,9 @@ import {
   ApiCookieAuth,
 } from '@nestjs/swagger';
 import { LoginDto } from './dto/login.dto';
-import { Request as ExpressRequest } from 'express';
+import { Request as ExpressRequest, Response } from 'express';
 import { Session, SessionData } from 'express-session';
+import { RateLimitGuard, SetRateLimit } from '../utils/guards/rate-limit.guard';
 
 interface RequestWithUser extends ExpressRequest {
   user: {
@@ -34,7 +36,12 @@ interface RequestWithUser extends ExpressRequest {
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @UseGuards(LocalAuthGuard)
+  @UseGuards(RateLimitGuard, LocalAuthGuard)
+  @SetRateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 5, // 5 tentatives maximum
+    message: 'Trop de tentatives de connexion, veuillez réessayer plus tard',
+  })
   @Post('login')
   @ApiOperation({ summary: 'Connecte un utilisateur' })
   @ApiBody({ type: LoginDto })
@@ -49,13 +56,16 @@ export class AuthController {
   })
   @ApiResponse({ status: 401, description: 'Identifiants invalides' })
   login(@Body() loginDto: LoginDto) {
-    // Utilisation du DTO pour afficher l'email utilisé pour la connexion
     console.log(`Tentative de connexion avec l'email: ${loginDto.email}`);
-
     return this.authService.login();
   }
 
-  @UseGuards(AuthenticatedGuard)
+  @UseGuards(RateLimitGuard, AuthenticatedGuard)
+  @SetRateLimit({
+    windowMs: 5 * 60 * 1000, // 5 minutes
+    max: 30, // 30 requêtes maximum
+    message: 'Trop de requêtes, veuillez réessayer plus tard',
+  })
   @Get('profile')
   @ApiOperation({ summary: "Récupère le profil de l'utilisateur connecté" })
   @ApiCookieAuth()
@@ -91,14 +101,10 @@ export class AuthController {
       },
     },
   })
-  logout(@Request() req: RequestWithUser) {
-    if (req.session) {
-      req.session.destroy((err) => {
-        if (err) {
-          console.error('Error destroying session:', err);
-        }
-      });
-    }
-    return this.authService.logout();
+  logout(
+    @Request() req: RequestWithUser,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.authService.logout(req.session, res);
   }
 }

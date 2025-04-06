@@ -5,20 +5,27 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import * as session from 'express-session';
 import * as passport from 'passport';
 import * as crypto from 'crypto';
+import helmet from 'helmet';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Ajoutez cette ligne si elle n'existe pas déjà
+  // 1. Protection des en-têtes HTTP
+  app.use(helmet());
+
+  // 2. Validation des entrées améliorée
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
       transform: true,
-      disableErrorMessages: false,
+      transformOptions: {
+        enableImplicitConversion: false,
+      },
     }),
   );
 
+  // 3. Génération sécurisée du nom de cookie
   const cookieName = `ca_sid_${crypto.createHash('sha256').update('circul-art-salt').digest('hex').substring(0, 8)}`;
 
   // Vérification de la variable d'environnement SESSION_SECRET
@@ -27,6 +34,7 @@ async function bootstrap() {
     process.exit(1);
   }
 
+  // 4. Configuration de session sécurisée
   app.use(
     session({
       secret: process.env.SESSION_SECRET,
@@ -42,14 +50,19 @@ async function bootstrap() {
     }),
   );
 
+  // 5. Configuration de Passport
   app.use(passport.initialize());
   app.use(passport.session());
 
+  // 6. Configuration CORS sécurisée
   app.enableCors({
     origin: process.env.FRONTEND_URL,
     credentials: true,
+    methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   });
 
+  // 7. Configuration Swagger
   const config = new DocumentBuilder()
     .setTitle('Circul-art API')
     .setDescription('The Circul-art API documentation')

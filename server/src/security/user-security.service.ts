@@ -4,98 +4,59 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ConfigService } from '@nestjs/config';
 import { Repository } from 'typeorm';
-import { User } from './entities/user.entity';
+import { User } from '../users/entities/user.entity';
 import { EmailService } from '../utils/email/email.service';
-import * as jwt from 'jsonwebtoken';
 import * as fs from 'fs';
 import * as path from 'path';
 import * as Handlebars from 'handlebars';
 import { PasswordUtils } from '../utils/password.utils';
-import { Matches, MinLength, validate } from 'class-validator';
-import { plainToClass } from 'class-transformer';
-
-// Type helper pour la gestion des erreurs
-type ErrorWithMessage = {
-  message: string;
-};
-
-// Fonction typée pour vérifier si un objet est une erreur avec un message
-function isErrorWithMessage(error: unknown): error is ErrorWithMessage {
-  return (
-    error !== null &&
-    typeof error === 'object' &&
-    'message' in error &&
-    typeof (error as Record<string, unknown>).message === 'string'
-  );
-}
-
-// Fonction sécurisée pour extraire le message d'une erreur
-function getErrorMessage(error: unknown): string {
-  if (isErrorWithMessage(error)) {
-    return error.message;
-  }
-  return 'Erreur inconnue';
-}
-
-// Types d'actions supportées
-export enum SecurityActionType {
-  VERIFY_EMAIL = 'VERIFY_EMAIL',
-  RESET_PASSWORD = 'RESET_PASSWORD',
-}
-
-// Interface pour le payload du token
-interface SecurityTokenPayload {
-  userId: number;
-  actionType: SecurityActionType;
-}
-
-// Interface pour les requêtes d'action
-export interface SecurityActionRequest {
-  actionType: SecurityActionType;
-  token?: string;
-  email?: string;
-  newPassword?: string;
-}
-
-class PasswordValidation {
-  @MinLength(10, {
-    message: 'Le mot de passe doit contenir au moins 10 caractères',
-  })
-  @Matches(/[a-z]/, {
-    message: 'Le mot de passe doit contenir au moins une lettre minuscule',
-  })
-  @Matches(/[A-Z]/, {
-    message: 'Le mot de passe doit contenir au moins une lettre majuscule',
-  })
-  @Matches(/[0-9]/, {
-    message: 'Le mot de passe doit contenir au moins un chiffre',
-  })
-  @Matches(/[!@#$%^&*(),.?":{}|<>]/, {
-    message: 'Le mot de passe doit contenir au moins un symbole',
-  })
-  password: string;
-}
+import { SecurityActionType } from './enums/security-action-type.enum';
+import { SecurityActionRequestDto } from './dto/security-action.dto';
+import { SecurityUtils } from './utils/security.utils';
 
 @Injectable()
 export class UserSecurityService {
   private templates: Map<SecurityActionType, HandlebarsTemplateDelegate> =
     new Map();
-  private readonly JWT_SECRET = process.env.JWT_SECRET;
-  private readonly FRONTEND_URL = process.env.FRONTEND_URL;
+  private readonly JWT_SECRET: string;
+  private readonly FRONTEND_URL: string;
   private usedTokens: Set<string> = new Set();
 
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
     private emailService: EmailService,
+    private configService: ConfigService,
   ) {
+    // Récupération sécurisée des variables d'environnement
+    this.JWT_SECRET = this.configService.get<string>('JWT_SECRET') || '';
+    this.FRONTEND_URL = this.configService.get<string>('FRONTEND_URL') || '';
+
+    if (!this.JWT_SECRET) {
+      console.error(
+        "AVERTISSEMENT: JWT_SECRET n'est pas défini dans les variables d'environnement!",
+      );
+    }
+
+    if (!this.FRONTEND_URL) {
+      console.error(
+        "AVERTISSEMENT: FRONTEND_URL n'est pas défini dans les variables d'environnement!",
+      );
+    }
+
     this.loadTemplates();
   }
 
   // Point d'entrée principal pour toutes les actions de sécurité
   async processSecurityAction(
-    request: SecurityActionRequest,
+    request: SecurityActionRequestDto,
   ): Promise<{ message: string; userId?: string }> {
+    // Vérification anticipée de la configuration
+    if (!this.JWT_SECRET) {
+      throw new InternalServerErrorException('Configuration JWT manquante');
+    }
+
     try {
       switch (request.actionType) {
         case SecurityActionType.VERIFY_EMAIL:
@@ -120,7 +81,9 @@ export class UserSecurityService {
       }
     } catch (error: unknown) {
       if (error instanceof BadRequestException) throw error;
-      throw new BadRequestException(`Erreur: ${getErrorMessage(error)}`);
+      throw new BadRequestException(
+        `Erreur: ${SecurityUtils.getErrorMessage(error)}`,
+      );
     }
   }
 
@@ -143,7 +106,7 @@ export class UserSecurityService {
         );
       } catch (error: unknown) {
         console.error(
-          `Erreur lors du chargement du template ${type}: ${getErrorMessage(error)}`,
+          `Erreur lors du chargement du template ${type}: ${SecurityUtils.getErrorMessage(error)}`,
         );
       }
     });
@@ -151,7 +114,16 @@ export class UserSecurityService {
 
   // Envoie un email de vérification
   async sendVerificationEmail(user: User): Promise<void> {
-    const token = this.generateToken(user.id, SecurityActionType.VERIFY_EMAIL);
+    if (!this.JWT_SECRET) {
+      throw new InternalServerErrorException('Configuration JWT manquante');
+    }
+
+    const token = SecurityUtils.generateToken(
+      user.id,
+      SecurityActionType.VERIFY_EMAIL,
+      this.JWT_SECRET,
+    );
+
     const template = this.templates.get(SecurityActionType.VERIFY_EMAIL);
 
     if (!template || !this.FRONTEND_URL) {
@@ -166,13 +138,17 @@ export class UserSecurityService {
 
     await this.emailService.sendEmail({
       to: user.email,
-      subject: "Vérification de votre compte Circul'art",
+      subject: 'Vérification de votre compte',
       html: htmlContent,
     });
   }
 
   // Envoie un email de réinitialisation de mot de passe
   async sendPasswordResetEmail(email: string): Promise<{ message: string }> {
+    if (!this.JWT_SECRET) {
+      throw new InternalServerErrorException('Configuration JWT manquante');
+    }
+
     const user = await this.usersRepository.findOne({ where: { email } });
     const message =
       'Si votre email est enregistré, vous recevrez un lien de réinitialisation.';
@@ -180,10 +156,12 @@ export class UserSecurityService {
     if (!user) return { message };
 
     try {
-      const token = this.generateToken(
+      const token = SecurityUtils.generateToken(
         user.id,
         SecurityActionType.RESET_PASSWORD,
+        this.JWT_SECRET,
       );
+
       const template = this.templates.get(SecurityActionType.RESET_PASSWORD);
 
       if (!template || !this.FRONTEND_URL) {
@@ -200,14 +178,14 @@ export class UserSecurityService {
 
       await this.emailService.sendEmail({
         to: user.email,
-        subject: "Réinitialisation de votre mot de passe Circul'art",
+        subject: 'Réinitialisation de votre mot de passe',
         html: htmlContent,
       });
 
       return { message };
     } catch (error: unknown) {
       console.error(
-        `Erreur d'envoi d'email à ${email}: ${getErrorMessage(error)}`,
+        `Erreur d'envoi d'email à ${email}: ${SecurityUtils.getErrorMessage(error)}`,
       );
       return { message };
     }
@@ -215,11 +193,17 @@ export class UserSecurityService {
 
   // Vérifie l'email d'un utilisateur
   async verifyEmail(token: string): Promise<{ message: string }> {
+    if (!this.JWT_SECRET) {
+      throw new InternalServerErrorException('Configuration JWT manquante');
+    }
+
     try {
-      const { userId } = this.verifyToken(
+      const { userId } = SecurityUtils.verifyToken(
         token,
         SecurityActionType.VERIFY_EMAIL,
+        this.JWT_SECRET,
       );
+
       const user = await this.usersRepository.findOne({
         where: { id: userId },
       });
@@ -244,6 +228,10 @@ export class UserSecurityService {
     token: string,
     newPassword: string,
   ): Promise<{ message: string }> {
+    if (!this.JWT_SECRET) {
+      throw new InternalServerErrorException('Configuration JWT manquante');
+    }
+
     try {
       // Vérifier si le token a déjà été utilisé
       if (this.usedTokens.has(token)) {
@@ -253,12 +241,13 @@ export class UserSecurityService {
       }
 
       // Valide le token
-      const { userId } = this.verifyToken(
+      const { userId } = SecurityUtils.verifyToken(
         token,
         SecurityActionType.RESET_PASSWORD,
+        this.JWT_SECRET,
       );
 
-      await this.validatePassword(newPassword);
+      await SecurityUtils.validatePassword(newPassword);
 
       const user = await this.usersRepository.findOne({
         where: { id: userId },
@@ -286,73 +275,8 @@ export class UserSecurityService {
       if (error instanceof BadRequestException) throw error;
       throw new BadRequestException(
         'Erreur lors de la réinitialisation du mot de passe: ' +
-          getErrorMessage(error),
+          SecurityUtils.getErrorMessage(error),
       );
     }
-  }
-
-  // Méthode de validation du mot de passe
-  private async validatePassword(password: string): Promise<void> {
-    const validation = plainToClass(PasswordValidation, { password });
-    const errors = await validate(validation);
-
-    if (errors.length > 0) {
-      // Récupére le premier message d'erreur
-      const constraints = errors[0].constraints;
-      const message = constraints
-        ? Object.values(constraints)[0]
-        : 'Mot de passe invalide';
-      throw new BadRequestException(message);
-    }
-  }
-
-  // Valide un token JWT
-  private verifyToken(
-    token: string,
-    expectedActionType: SecurityActionType,
-  ): SecurityTokenPayload {
-    if (!this.JWT_SECRET)
-      throw new InternalServerErrorException('Clé JWT manquante');
-
-    try {
-      const decoded = jwt.verify(token, this.JWT_SECRET) as unknown;
-
-      if (
-        !decoded ||
-        typeof decoded !== 'object' ||
-        !('userId' in decoded) ||
-        !('actionType' in decoded)
-      ) {
-        throw new BadRequestException('Format de token invalide');
-      }
-
-      const payload = decoded as SecurityTokenPayload;
-
-      if (payload.actionType !== expectedActionType) {
-        throw new BadRequestException(`Token non valide pour cette action`);
-      }
-
-      return payload;
-    } catch (error: unknown) {
-      if (error instanceof jwt.TokenExpiredError) {
-        throw new BadRequestException('Le token a expiré');
-      }
-      throw error instanceof BadRequestException
-        ? error
-        : new BadRequestException('Token invalide');
-    }
-  }
-
-  // Génère un token JWT
-  private generateToken(
-    userId: number,
-    actionType: SecurityActionType,
-  ): string {
-    if (!this.JWT_SECRET)
-      throw new InternalServerErrorException('Clé JWT manquante');
-
-    const expiresIn =
-      actionType === SecurityActionType.RESET_PASSWORD ? '1h' : '24h';
-    return jwt.sign({ userId, actionType }, this.JWT_SECRET, { expiresIn });
   }
 }

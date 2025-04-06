@@ -38,6 +38,7 @@ export const userErrorMessages = {
         400: 'Données invalides, veuillez vérifier le formulaire.',
         401: "Votre compte n'est pas vérifié. Veuillez vérifier votre email avant de vous connecter.",
         409: "L'inscription a échoué. Vérifiez vos informations ou contactez le support.",
+        429: 'Trop de tentatives. Veuillez patienter quelques minutes avant de réessayer.',
         500: 'Erreur serveur, veuillez réessayer plus tard.',
         unknown: "Une erreur est survenue lors de l'inscription."
     },

@@ -1,6 +1,9 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { UsersService } from '../users/users.service';
 import { PasswordUtils } from '../utils/password.utils';
+import { Response } from 'express';
+import { Session } from 'express-session';
+import * as crypto from 'crypto';
 
 @Injectable()
 export class AuthService {
@@ -57,7 +60,25 @@ export class AuthService {
     };
   }
 
-  logout(): { message: string } {
+  logout(session: Session | undefined, res: Response): { message: string } {
+    // Destruction de la session
+    if (session) {
+      session.destroy((err) => {
+        if (err) {
+          console.error('Error destroying session:', err);
+        }
+      });
+    }
+
+    // Suppression du cookie
+    const cookieName = `ca_sid_${crypto
+      .createHash('sha256')
+      .update('circul-art-salt')
+      .digest('hex')
+      .substring(0, 8)}`;
+
+    res.clearCookie(cookieName);
+
     return { message: 'Déconnexion réussie' };
   }
 }

@@ -10,7 +10,7 @@ import { Repository } from 'typeorm';
 import { User } from './entities/user.entity';
 import { Role } from './entities/role.entity';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UserSecurityService } from './userSecurity.service';
+import { UserSecurityService } from '../security/user-security.service';
 import { PasswordUtils } from '../utils/password.utils';
 
 @Injectable()

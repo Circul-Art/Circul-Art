@@ -1,10 +1,8 @@
 import { Controller, Post, Body, BadRequestException } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiResponse, ApiBody } from '@nestjs/swagger';
-import {
-  UserSecurityService,
-  SecurityActionRequest,
-  SecurityActionType,
-} from './userSecurity.service';
+import { UserSecurityService } from './user-security.service';
+import { SecurityActionRequestDto } from './dto/security-action.dto';
+import { SecurityActionType } from './enums/security-action-type.enum';
 
 @ApiTags('User Security')
 @Controller('security')
@@ -50,7 +48,7 @@ export class UserSecurityController {
         description: 'Exemple de requête pour vérifier un email utilisateur',
         value: {
           actionType: 'VERIFY_EMAIL',
-          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+          token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ6...',
         },
       },
       requestPasswordReset: {
@@ -153,7 +151,7 @@ export class UserSecurityController {
       },
     },
   })
-  async processAction(@Body() actionRequest: SecurityActionRequest) {
+  async processAction(@Body() actionRequest: SecurityActionRequestDto) {
     try {
       return await this.userSecurityService.processSecurityAction(
         actionRequest,
