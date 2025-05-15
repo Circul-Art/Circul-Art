@@ -3,12 +3,16 @@ import { PassportSerializer } from '@nestjs/passport';
 
 interface UserEntity {
   id: number;
+  name: string;
+  firstname: string;
   roles: Array<{ name: string }>;
   isVerified: boolean;
 }
 
 interface SerializedUser {
   id: number;
+  name: string;
+  firstname: string;
   roles: string[];
   isVerified: boolean;
 }
@@ -20,7 +24,13 @@ export class SessionSerializer extends PassportSerializer {
     done: (err: Error | null, user: SerializedUser | null) => void,
   ): void {
     try {
-      if (!user || !user.roles || !Array.isArray(user.roles)) {
+      if (
+        !user ||
+        !user.roles ||
+        !Array.isArray(user.roles) ||
+        !user.name ||
+        !user.firstname
+      ) {
         done(new Error('Structure utilisateur invalide'), null);
         return;
       }
@@ -30,6 +40,8 @@ export class SessionSerializer extends PassportSerializer {
 
       done(null, {
         id: user.id,
+        name: user.name,
+        firstname: user.firstname,
         roles: user.roles.map((role) =>
           typeof role === 'object' && role !== null ? role.name : String(role),
         ),

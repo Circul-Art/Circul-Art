@@ -12,19 +12,24 @@ router.beforeEach(async (to, _from, next) => {
 
     const authStore = useAuthStore();
 
-    // Attend que l'état soit chargé pour éviter les redirections inutiles
-    if (authStore.isLoading) {
-        await authStore.loadUser();
-    }
-
-    // Redirection si l'utilisateur est déjà connecté
-    if (to.meta.guestOnly && authStore.isAuthenticated()) {
-        return next('/');
-    }
-
-    // Redirection si la page nécessite une authentification
-    if (to.meta.requiresAuth && !authStore.isAuthenticated()) {
+    // Vérification des routes protégées
+    if (to.meta.requiresAuth && !authStore.isAuthenticated) {
         return next('/login');
+    }
+
+    // Vérification des rôles
+    if (to.meta.requiresAuth && to.meta.roles) {
+        const hasAccess = await authStore.hasRole(
+            to.meta.roles as string | string[]
+        );
+        if (!hasAccess) {
+            return next({ name: 'NotFound' });
+        }
+    }
+
+    // Redirection si déjà connecté
+    if (to.meta.guestOnly && authStore.isAuthenticated) {
+        return next('/');
     }
 
     next();

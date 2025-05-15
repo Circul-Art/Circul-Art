@@ -1,77 +1,118 @@
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { defineStore } from 'pinia';
-import Database from '../utils/database.utils';
+import api from '../utils/api.utils';
 import type { AxiosError } from 'axios';
 
-// Interface pour les informations d'identification
 interface LoginCredentials {
     email: string;
     password: string;
 }
 
-export const useAuthStore = defineStore('auth', () => {
-    const user = ref(null);
-    const error = ref<string | null>(null);
-    const isLoading = ref(true);
+export const useAuthStore = defineStore(
+    'auth',
+    () => {
+        // État principal - stocke uniquement l'utilisateur après connexion réussie
+        const user = ref(null);
+        const error = ref<string | null>(null);
+        const isLoading = ref(false);
 
-    // Vérifie l'authentification
-    const isAuthenticated = () => !!user.value;
+        // Vérification basée uniquement sur l'existence des données utilisateur
+        const isAuthenticated = computed(() => !!user.value);
 
-    // Charge le profil utilisateur au démarrage
-    async function loadUser() {
-        isLoading.value = true;
-        try {
-            const data = await Database.getAll('auth/profile'); // Vérifie la session
-            user.value = data || null;
-        } catch (err) {
-            user.value = null;
-            const axiosError = err as AxiosError<{ message: string }>;
-            error.value =
-                axiosError.response?.data?.message ||
-                'Erreur lors du chargement du profil';
-        } finally {
-            isLoading.value = false;
-        }
-    }
+        // Fonction pour vérifier les rôles
+        async function hasRole(roles: string | string[]): Promise<boolean> {
+            if (!isAuthenticated.value) return false;
 
-    async function login(credentials: LoginCredentials) {
-        error.value = null;
-        try {
-            const result = await Database.create('auth/login', credentials);
-            if (result?.data) {
-                await loadUser();
-                return true;
+            try {
+                // S'assure que nous avons des rôles à vérifier
+                if (!roles || (Array.isArray(roles) && roles.length === 0)) {
+                    console.warn('Aucun rôle spécifié pour la vérification');
+                    return false;
+                }
+
+                const rolesToCheck = Array.isArray(roles) ? roles : [roles];
+
+                const response = await api.get('auth/verify-roles', {
+                    params: {
+                        // Envoi du tableau comme une chaîne séparée par des virgules
+                        roles: rolesToCheck.join(',')
+                    }
+                });
+
+                return !!response?.data?.hasAccess;
+            } catch (err) {
+                console.error('Erreur lors de la vérification des rôles:', err);
+                console.error(
+                    "Détails de l'erreur:",
+                    (err as AxiosError).response?.data || (err as Error).message
+                );
+                return false;
             }
-            return false;
-        } catch (err: unknown) {
-            const axiosError = err as AxiosError<{ message: string }>;
-            error.value =
-                axiosError.response?.data?.message || 'Échec de connexion';
-            return false;
+        }
+
+        // Fonction de connexion
+        async function login(credentials: LoginCredentials) {
+            error.value = null;
+            isLoading.value = true;
+
+            try {
+                const result = await api.post('auth/login', credentials);
+                if (result?.data?.user) {
+                    // Stocke les données de l'utilisateur de la réponse de login
+                    user.value = result.data.user;
+                    return true;
+                }
+                return false;
+            } catch (err) {
+                const axiosError = err as AxiosError<{ message: string }>;
+                error.value =
+                    axiosError.response?.data?.message || 'Échec de connexion';
+                return false;
+            } finally {
+                isLoading.value = false;
+            }
+        }
+
+        // Déconnexion
+        async function logout() {
+            isLoading.value = true;
+            try {
+                await api.post('auth/logout', {});
+            } catch (err) {
+                console.warn('Erreur lors de la déconnexion:', err);
+            } finally {
+                user.value = null;
+                isLoading.value = false;
+            }
+        }
+
+        return {
+            user,
+            error,
+            isLoading,
+            isAuthenticated,
+            hasRole,
+            login,
+            logout
+        };
+    },
+    {
+        persist: {
+            key: 'auth',
+            storage: sessionStorage,
+            serializer: {
+                serialize: (state) => {
+                    const { error, isLoading, ...rest } = state;
+
+                    console.debug('Propriétés non persistées:', {
+                        error,
+                        isLoading
+                    });
+
+                    return JSON.stringify(rest);
+                },
+                deserialize: (str) => JSON.parse(str)
+            }
         }
     }
-
-    async function logout() {
-        try {
-            await Database.create('auth/logout', {});
-        } catch (err) {
-            const axiosError = err as AxiosError<{ message: string }>;
-            error.value =
-                axiosError.response?.data?.message ||
-                'Erreur lors de la déconnexion';
-            console.warn('Erreur lors de la déconnexion:', error.value);
-        } finally {
-            user.value = null;
-        }
-    }
-
-    return {
-        user,
-        error,
-        isLoading,
-        login,
-        logout,
-        loadUser,
-        isAuthenticated
-    };
-});
+);

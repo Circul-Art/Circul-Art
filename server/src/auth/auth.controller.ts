@@ -25,6 +25,8 @@ import { RateLimitGuard, SetRateLimit } from '../utils/guards/rate-limit.guard';
 interface RequestWithUser extends ExpressRequest {
   user: {
     id: number;
+    name: string;
+    firstname: string;
     roles: any[];
     estVerifie: boolean;
   };
@@ -55,9 +57,11 @@ export class AuthController {
     },
   })
   @ApiResponse({ status: 401, description: 'Identifiants invalides' })
-  login(@Body() loginDto: LoginDto) {
+  login(@Request() req: RequestWithUser, @Body() loginDto: LoginDto) {
+    // Utilisation du DTO pour afficher l'email utilisé pour la connexion
     console.log(`Tentative de connexion avec l'email: ${loginDto.email}`);
-    return this.authService.login();
+
+    return this.authService.login(req.user);
   }
 
   @UseGuards(RateLimitGuard, AuthenticatedGuard)

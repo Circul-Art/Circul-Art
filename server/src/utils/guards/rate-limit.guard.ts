@@ -12,15 +12,18 @@ export interface RateLimitConfig {
   message?: string; // Message personnalisé (optionnel)
 }
 
-export const SetRateLimit = (config: RateLimitConfig) => {
+// Typage sécurisé pour le décorateur
+export const SetRateLimit = (
+  config: RateLimitConfig,
+): MethodDecorator & ClassDecorator => {
   return (
     target: object,
-    key?: string,
-    descriptor?: PropertyDescriptor,
-  ): PropertyDescriptor | undefined => {
-    const metadata = (descriptor?.value as object) ?? target;
-    Reflect.defineMetadata(RATE_LIMIT_KEY, config, metadata);
-    return descriptor;
+    propertyKey?: string | symbol,
+    descriptor?: TypedPropertyDescriptor<any>,
+  ): void => {
+    const metadataTarget: object = (descriptor?.value as object) ?? target;
+
+    Reflect.defineMetadata(RATE_LIMIT_KEY, config, metadataTarget);
   };
 };
 
@@ -28,8 +31,8 @@ export const SetRateLimit = (config: RateLimitConfig) => {
 export class RateLimitGuard implements CanActivate {
   private readonly limiters = new Map<string, RateLimitRequestHandler>();
   private readonly defaultConfig: RateLimitConfig = {
-    windowMs: 15 * 60 * 1000, // 15 minutes par défaut
-    max: 100, // 100 requêtes par défaut
+    windowMs: 15 * 60 * 1000,
+    max: 100,
     message: 'Trop de requêtes, veuillez réessayer plus tard',
   };
 
@@ -39,20 +42,16 @@ export class RateLimitGuard implements CanActivate {
     const request = context.switchToHttp().getRequest<Request>();
     const response = context.switchToHttp().getResponse<Response>();
 
-    // Récupére le gestionnaire et la classe
     const handler = context.getHandler();
     const controller = context.getClass();
 
-    // Cherche la configuration sur le gestionnaire d'abord, puis sur le contrôleur
     const config =
-      this.reflector.get<RateLimitConfig>(RATE_LIMIT_KEY, handler) ||
-      this.reflector.get<RateLimitConfig>(RATE_LIMIT_KEY, controller) ||
+      this.reflector.get<RateLimitConfig>(RATE_LIMIT_KEY, handler) ??
+      this.reflector.get<RateLimitConfig>(RATE_LIMIT_KEY, controller) ??
       this.defaultConfig;
 
-    // Crée une clé unique pour cette configuration
     const key = `${controller.name}-${handler.name}`;
 
-    // Crée ou récupére le limiteur pour cette route
     if (!this.limiters.has(key)) {
       this.limiters.set(
         key,
@@ -69,7 +68,6 @@ export class RateLimitGuard implements CanActivate {
       );
     }
 
-    // Applique le limiteur
     const limiter = this.limiters.get(key);
 
     if (!limiter) {
@@ -77,14 +75,11 @@ export class RateLimitGuard implements CanActivate {
       return true;
     }
 
-    return await new Promise<boolean>((resolve, reject) => {
-      try {
-        void limiter(request, response, () => {
-          resolve(true);
-        });
-      } catch (error) {
-        reject(error instanceof Error ? error : new Error(String(error)));
-      }
+    return new Promise((resolve) => {
+      // Utilisation de `void` pour marquer explicitement que la promesse retournée par le middleware est ignorée
+      void limiter(request, response, () => {
+        resolve(true);
+      });
     });
   }
 }

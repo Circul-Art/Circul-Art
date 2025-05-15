@@ -5,6 +5,8 @@ import { AuthService } from '../auth.service';
 
 interface ValidatedUser {
   id: number;
+  name: string;
+  firstname: string;
   roles: Array<{ name: string }>;
   isVerified: boolean;
 }
@@ -17,7 +19,9 @@ function isValidUser(obj: unknown): obj is ValidatedUser {
   return (
     typeof candidate.id === 'number' &&
     Array.isArray(candidate.roles) &&
-    typeof candidate.isVerified === 'boolean'
+    typeof candidate.isVerified === 'boolean' &&
+    typeof candidate.name === 'string' &&
+    typeof candidate.firstname === 'string'
   );
 }
 
@@ -46,6 +50,8 @@ export class LocalStrategy extends PassportStrategy(Strategy) {
 
       return {
         id: result.id,
+        name: result.name,
+        firstname: result.firstname,
         roles: result.roles,
         isVerified: result.isVerified,
       };
