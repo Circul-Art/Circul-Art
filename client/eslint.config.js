@@ -5,6 +5,17 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default [
+    {
+        ignores: [
+            '**/node_modules/**',
+            '**/dist/**',
+            '**/.nuxt/**',
+            '**/coverage/**',
+            '**/*.min.js',
+            '**/public/**',
+            '**/assets/**'
+        ]
+    },
     { files: ['**/*.{js,mjs,cjs,ts,vue}'] },
     { languageOptions: { globals: globals.browser } },
     pluginJs.configs.recommended,

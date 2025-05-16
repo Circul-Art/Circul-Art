@@ -1,0 +1,13 @@
+echo "🔨 Vérification de la compilation du client..."
+cd client && npm run build:check || {
+  echo "❌ La compilation du client a échoué. Veuillez corriger les erreurs avant de pousser."
+  exit 1
+}
+
+echo "🔨 Vérification de la compilation du serveur..."
+cd ../server && npm run build:check || {
+  echo "❌ La compilation du serveur a échoué. Veuillez corriger les erreurs avant de pousser."
+  exit 1
+}
+
+echo "✅ Vérification des builds réussie !"

@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint": "eslint . --ext .js,.ts,.vue",
     "lint:fix": "eslint . --ext .js,.ts,.vue --fix",
-    "format": "prettier --write \"src/**/*.{js,ts,vue}\""
+    "format": "prettier --write \"src/**/*.{js,ts,vue}\"",
+    "build:check": "vue-tsc --noEmit"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.8",

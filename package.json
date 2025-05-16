@@ -1,5 +1,5 @@
 {
-  "name": "devcanvas",
+  "name": "circul-art",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -13,7 +13,10 @@
     "format:check:frontend": "prettier --check \"client/src/**/*.{ts,vue}\"",
     "lint": "npm run lint:backend && npm run lint:frontend",
     "format": "npm run format:backend && npm run format:frontend",
-    "format:check": "npm run format:check:backend && npm run format:check:frontend"
+    "format:check": "npm run format:check:backend && npm run format:check:frontend",
+    "build:check:frontend": "cd client && npm run build:check",
+    "build:check:backend": "cd server && npm run build:check",
+    "build:check": "npm run build:check:frontend && npm run build:check:backend"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.8.0",

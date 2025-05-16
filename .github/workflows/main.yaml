@@ -4,15 +4,43 @@ on:
     branches: [ develop ]
 
 jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Cache dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            **/node_modules
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Check code formatting
+        run: npm run format:check
+        
+      - name: Run linting
+        run: npm run lint
+
   deploy:
+    needs: validate
     runs-on: ubuntu-latest
     
     env:
       SSHPASS: ${{ secrets.APP_PASS }}
 
     steps:
-      - uses: actions/checkout@v2
-      
       - name: APT UPDATE and INSTALL SSHPASS
         run: sudo apt update && sudo apt install sshpass
           
@@ -22,7 +50,7 @@ jobs:
             cd Circul-art/ && 
             git pull origin develop && 
             cd client && 
-            npm install && 
+            npm ci && 
             npm run build
           "
       
@@ -31,7 +59,7 @@ jobs:
           sshpass -e ssh -o stricthostkeychecking=no ${{ secrets.APP_USER }}@${{ secrets.APP_HOST }} "
             cd Circul-art/ && 
             cd server && 
-            npm install && 
+            npm ci && 
             npm run build
           "
 
