@@ -1,158 +1,148 @@
 <template>
-    <div
-        class="min-h-screen flex items-center justify-center bg-gray-100 py-6 px-4"
-    >
-        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-3xl">
-            <h1
-                class="text-3xl font-bold mb-2 text-center bg-gradient-to-r from-green-600 to-emerald-500 inline-block text-transparent bg-clip-text w-full"
-            >
-                Créer un compte
-            </h1>
-            <p class="text-gray-600 text-center mb-6">
-                Rejoignez DevCanvas pour accélérer vos projets de développement
-            </p>
-
-            <form class="space-y-5" @submit.prevent="onSubmit">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
-                    <div>
-                        <InputForm
-                            v-model="form.firstname.$value"
-                            label-value="Prénom"
-                            input-name="firstname"
-                            type="text"
-                            placeholder="Jean"
-                            :error-message="
-                                showError('firstname')
-                                    ? form.firstname.$error?.message
-                                    : ''
-                            "
-                            :error-state="showError('firstname')"
-                            @blur="touchedFields.firstname = true"
-                        />
-                    </div>
-
-                    <div>
-                        <InputForm
-                            v-model="form.name.$value"
-                            label-value="Nom"
-                            input-name="name"
-                            type="text"
-                            placeholder="Dupont"
-                            :error-message="
-                                showError('name')
-                                    ? form.name.$error?.message
-                                    : ''
-                            "
-                            :error-state="showError('name')"
-                            @blur="touchedFields.name = true"
-                        />
-                    </div>
+    <div class="min-h-screen flex items-center justify-center bg-white">
+        <div
+            class="flex flex-col md:flex-row w-full max-w-6xl mx-auto px-4 py-8 gap-8"
+        >
+            <div class="w-full md:w-1/2 flex flex-col justify-center">
+                <div class="flex justify-center md:justify-start mb-6">
+                    <img src="" alt="Circul'Art logo" class="h-10" />
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
-                    <div>
-                        <InputForm
-                            v-model="form.email.$value"
-                            label-value="Email"
-                            input-name="email"
-                            type="email"
-                            placeholder="contact@entreprise.com"
-                            :error-message="
-                                showError('email')
-                                    ? form.email.$error?.message
-                                    : ''
-                            "
-                            :error-state="showError('email')"
-                            @blur="touchedFields.email = true"
-                        >
-                            <template #hint>
-                                <div>
-                                    Utilisez une adresse email professionnelle
-                                    (pas de Gmail, Yahoo, etc.)
-                                </div>
-                            </template>
-                        </InputForm>
+                <h1 class="text-3xl font-bold mb-4 text-center md:text-center">
+                    Créer un compte
+                </h1>
+
+                <p class="text-gray-700 mb-8 text-center md:text-center">
+                    Rejoignez Circul'Art et donnez vie à vos projets tout en
+                    contribuant à une économie circulaire.
+                </p>
+
+                <form class="space-y-5" @submit.prevent="onSubmit">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+                        <div>
+                            <InputForm
+                                v-model="form.firstname.$value"
+                                label-value="Prénom*"
+                                input-name="firstname"
+                                type="text"
+                                placeholder="Jean"
+                                :error-message="
+                                    showError('firstname')
+                                        ? form.firstname.$error?.message
+                                        : ''
+                                "
+                                :error-state="showError('firstname')"
+                                @blur="touchedFields.firstname = true"
+                            />
+                        </div>
+
+                        <div>
+                            <InputForm
+                                v-model="form.name.$value"
+                                label-value="Nom*"
+                                input-name="name"
+                                type="text"
+                                placeholder="Dupont"
+                                :error-message="
+                                    showError('name')
+                                        ? form.name.$error?.message
+                                        : ''
+                                "
+                                :error-state="showError('name')"
+                                @blur="touchedFields.name = true"
+                            />
+                        </div>
                     </div>
 
-                    <div>
-                        <InputForm
-                            v-model="form.phone.$value"
-                            label-value="Téléphone"
-                            input-name="phone"
-                            type="tel"
-                            placeholder="0612345678"
-                            :error-message="
-                                showError('phone')
-                                    ? form.phone.$error?.message
-                                    : ''
-                            "
-                            :error-state="showError('phone')"
-                            @blur="touchedFields.phone = true"
-                        />
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-2">
+                        <div>
+                            <InputForm
+                                v-model="form.email.$value"
+                                label-value="Email*"
+                                input-name="email"
+                                type="email"
+                                placeholder="contact@entreprise.com"
+                                :error-message="
+                                    showError('email')
+                                        ? form.email.$error?.message
+                                        : ''
+                                "
+                                :error-state="showError('email')"
+                                @blur="touchedFields.email = true"
+                            >
+                                <template #hint>
+                                    <div class="text-sm text-gray-500">
+                                        Utilisez une adresse email
+                                        professionnelle
+                                    </div>
+                                </template>
+                            </InputForm>
+                        </div>
+
+                        <div>
+                            <InputForm
+                                v-model="form.phone.$value"
+                                label-value="Numéro de téléphone"
+                                input-name="phone"
+                                type="tel"
+                                placeholder="0612345678"
+                                :error-message="
+                                    showError('phone')
+                                        ? form.phone.$error?.message
+                                        : ''
+                                "
+                                :error-state="showError('phone')"
+                                @blur="touchedFields.phone = true"
+                            />
+                        </div>
                     </div>
-                </div>
 
-                <InputForm
-                    v-model="form.siret.$value"
-                    label-value="Numéro SIRET (entreprise)"
-                    input-name="siret"
-                    type="text"
-                    placeholder="12345678901234"
-                    :error-message="
-                        showError('siret') ? form.siret.$error?.message : ''
-                    "
-                    :error-state="showError('siret')"
-                    @blur="touchedFields.siret = true"
-                >
-                    <template #hint>
-                        <div>
-                            Le numéro SIRET doit comporter 14 chiffres sans
-                            espaces ni tirets.
-                        </div>
-                    </template>
-                </InputForm>
-
-                <InputForm
-                    v-model="form.password.$value"
-                    label-value="Mot de passe"
-                    input-name="password"
-                    type="password"
-                    placeholder="Votre mot de passe"
-                    :error-message="
-                        showError('password')
-                            ? form.password.$error?.message
-                            : ''
-                    "
-                    :error-state="showError('password')"
-                    @blur="touchedFields.password = true"
-                >
-                    <template #hint>
-                        <div>
-                            Le mot de passe doit contenir au moins 10
-                            caractères, une majuscule, une minuscule, un chiffre
-                            et un symbole.
-                        </div>
-                    </template>
-                </InputForm>
-
-                <div
-                    class="flex flex-col-reverse sm:flex-row justify-between items-center mt-8 gap-y-4"
-                >
-                    <div
-                        class="text-gray-600 text-sm text-center sm:text-left w-full sm:w-auto"
+                    <InputForm
+                        v-model="form.siret.$value"
+                        label-value="Numéro de SIRET (entreprise)*"
+                        input-name="siret"
+                        type="text"
+                        placeholder="12345678901234"
+                        :error-message="
+                            showError('siret') ? form.siret.$error?.message : ''
+                        "
+                        :error-state="showError('siret')"
+                        @blur="touchedFields.siret = true"
                     >
-                        Vous avez déjà un compte?
-                        <router-link
-                            to="/login"
-                            class="text-green-600 hover:underline font-medium"
-                        >
-                            Se connecter
-                        </router-link>
-                    </div>
+                        <template #hint>
+                            <div class="text-sm text-gray-500">
+                                Le numéro SIRET doit comporter 14 chiffres sans
+                                espaces ni tirets.
+                            </div>
+                        </template>
+                    </InputForm>
+
+                    <InputForm
+                        v-model="form.password.$value"
+                        label-value="Mot de passe*"
+                        input-name="password"
+                        type="password"
+                        placeholder="Votre mot de passe"
+                        :error-message="
+                            showError('password')
+                                ? form.password.$error?.message
+                                : ''
+                        "
+                        :error-state="showError('password')"
+                        @blur="touchedFields.password = true"
+                    >
+                        <template #hint>
+                            <div class="text-sm text-gray-500">
+                                Le mot de passe doit contenir au moins 10
+                                caractères, une majuscule, une minuscule, un
+                                chiffre et un symbole.
+                            </div>
+                        </template>
+                    </InputForm>
 
                     <button
                         type="submit"
-                        class="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-medium transition-colors w-full sm:w-auto"
+                        class="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition font-semibold mt-6"
                         :disabled="isLoading"
                     >
                         <div class="flex items-center justify-center">
@@ -170,25 +160,37 @@
                                     r="10"
                                     stroke="currentColor"
                                     stroke-width="4"
-                                ></circle>
+                                />
                                 <path
                                     class="opacity-75"
                                     fill="currentColor"
                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                ></path>
+                                />
                             </svg>
                             {{
                                 isLoading
                                     ? 'Inscription en cours...'
-                                    : "S'inscrire"
+                                    : 'Créer un compte'
                             }}
                         </div>
                     </button>
-                </div>
-            </form>
+
+                    <div class="text-center text-sm text-gray-700 mt-4">
+                        Vous avez déjà un compte ?
+                        <router-link
+                            to="/login"
+                            class="underline font-medium text-black"
+                            >Se connecter</router-link
+                        >
+                    </div>
+                </form>
+            </div>
+
+            <div class="w-full md:w-1/2 flex items-center justify-center">
+                <TestimonialCarousel :autoplay-interval="6000" />
+            </div>
         </div>
     </div>
-    <LoadingOverlay :show="isLoading" message="Inscription en cours..." />
 </template>
 
 <script setup lang="ts">
@@ -197,7 +199,7 @@ import { useRouter } from 'vue-router';
 import Database from '../../utils/database.utils';
 import InputForm from '../../components/form/InputForm.vue';
 import { useToast } from 'vue-toastification';
-import LoadingOverlay from '../../components/LoadingOverlay.vue';
+import TestimonialCarousel from '../../components/auth/TestimonialCarousel.vue';
 import { defineForm, field, isValidForm } from 'vue-yup-form';
 import * as yup from 'yup';
 import { userErrorMessages } from '../../utils/errors/auth/users';

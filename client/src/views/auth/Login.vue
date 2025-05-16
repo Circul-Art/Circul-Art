@@ -1,81 +1,63 @@
 <template>
-    <div
-        class="min-h-screen flex items-center justify-center bg-gray-100 py-6 px-4"
-    >
-        <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-            <h1
-                class="text-3xl font-bold mb-2 text-center bg-gradient-to-r from-green-600 to-emerald-500 inline-block text-transparent bg-clip-text w-full"
-            >
-                Connexion
-            </h1>
-            <p class="text-gray-600 text-center mb-6">
-                Accédez à votre espace personnel
-            </p>
-
-            <form class="space-y-5" @submit.prevent="handleLogin">
-                <InputForm
-                    v-model="form.email.$value"
-                    label-value="Email"
-                    input-name="email"
-                    type="email"
-                    placeholder="votre@email.com"
-                    :error-message="
-                        showError('email') ? form.email.$error?.message : ''
-                    "
-                    :error-state="showError('email')"
-                    @blur="touchedFields.email = true"
-                />
-
-                <InputForm
-                    v-model="form.password.$value"
-                    label-value="Mot de passe"
-                    input-name="password"
-                    type="password"
-                    placeholder="Votre mot de passe"
-                    :error-message="
-                        showError('password')
-                            ? form.password.$error?.message
-                            : ''
-                    "
-                    :error-state="showError('password')"
-                    @blur="touchedFields.password = true"
-                >
-                    <template #hint>
-                        <div>
-                            Le mot de passe doit contenir au moins 10
-                            caractères, une majuscule, une minuscule, un chiffre
-                            et un symbole.
-                        </div>
-                    </template>
-                </InputForm>
-
-                <div class="flex justify-end -mt-1">
-                    <router-link
-                        to="/forgot-password"
-                        class="text-sm text-green-600 hover:underline"
-                    >
-                        Mot de passe oublié?
-                    </router-link>
+    <div class="min-h-screen flex items-center justify-center bg-white">
+        <div
+            class="flex flex-col md:flex-row w-full max-w-6xl mx-auto px-4 py-8 gap-8"
+        >
+            <div class="w-full md:w-1/2 flex flex-col justify-center">
+                <div class="flex justify-center md:justify-start mb-6">
+                    <img src="" alt="Circul'Art logo" class="h-10" />
                 </div>
 
-                <div
-                    class="flex flex-col-reverse sm:flex-row justify-between items-center mt-8 gap-y-4"
-                >
-                    <div
-                        class="text-gray-600 text-sm text-center sm:text-left w-full sm:w-auto"
-                    >
-                        Pas encore de compte?
+                <h1 class="text-3xl font-bold mb-4 text-center md:text-center">
+                    Se connecter
+                </h1>
+
+                <p class="text-gray-700 mb-8 text-center md:text-center">
+                    Connectez vous à Circul'Art et donnez vie à vos projets tout
+                    en contribuant à une économie circulaire.
+                </p>
+
+                <form class="space-y-6" @submit.prevent="handleLogin">
+                    <InputForm
+                        v-model="form.email.$value"
+                        label-value="Email*"
+                        input-name="email"
+                        type="email"
+                        placeholder="votre@email.com"
+                        :error-message="
+                            showError('email') ? form.email.$error?.message : ''
+                        "
+                        :error-state="showError('email')"
+                        @blur="touchedFields.email = true"
+                    />
+
+                    <InputForm
+                        v-model="form.password.$value"
+                        label-value="Mot de passe*"
+                        input-name="password"
+                        type="password"
+                        placeholder="Votre mot de passe"
+                        :error-message="
+                            showError('password')
+                                ? form.password.$error?.message
+                                : ''
+                        "
+                        :error-state="showError('password')"
+                        @blur="touchedFields.password = true"
+                    />
+
+                    <div class="text-sm text-center">
                         <router-link
-                            to="/register"
-                            class="text-green-600 hover:underline font-medium"
+                            to="/forgot-password"
+                            class="text-gray-700 underline hover:text-black"
                         >
-                            S'inscrire
+                            Vous avez oublié votre mot de passe?
                         </router-link>
                     </div>
 
                     <button
                         type="submit"
-                        class="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-medium transition-colors w-full sm:w-auto"
+                        class="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition font-semibold"
                         :disabled="isLoading"
                     >
                         <div class="flex items-center justify-center">
@@ -93,12 +75,12 @@
                                     r="10"
                                     stroke="currentColor"
                                     stroke-width="4"
-                                ></circle>
+                                />
                                 <path
                                     class="opacity-75"
                                     fill="currentColor"
                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                                ></path>
+                                />
                             </svg>
                             {{
                                 isLoading
@@ -107,11 +89,25 @@
                             }}
                         </div>
                     </button>
-                </div>
-            </form>
+
+                    <div class="text-center text-sm text-gray-700 mt-4">
+                        Vous n'avez pas de compte ?
+                        <router-link
+                            to="/register"
+                            class="underline font-medium text-black"
+                            >Créer mon compte</router-link
+                        >
+                    </div>
+                </form>
+            </div>
+
+            <div class="w-full md:w-1/2 flex items-center justify-center">
+                <TestimonialCarousel :autoplay-interval="6000" />
+            </div>
         </div>
+
+        <LoadingOverlay :show="isLoading" message="Connexion en cours..." />
     </div>
-    <LoadingOverlay :show="isLoading" message="Connexion en cours..." />
 </template>
 
 <script setup lang="ts">
@@ -120,6 +116,7 @@ import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 import { useAuthStore } from '../../stores/auth';
 import LoadingOverlay from '../../components/LoadingOverlay.vue';
+import TestimonialCarousel from '../../components/auth/TestimonialCarousel.vue';
 import InputForm from '../../components/form/InputForm.vue';
 import { defineForm, field, isValidForm } from 'vue-yup-form';
 import * as yup from 'yup';
