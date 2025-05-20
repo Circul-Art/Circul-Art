@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import routes from './routes';
 import { useAuthStore } from '../stores/auth';
+import { loadLayoutMiddleware } from './middleware/loadLayoutMiddleware';
 
 const router = createRouter({
     history: createWebHistory(),
@@ -34,5 +35,7 @@ router.beforeEach(async (to, _from, next) => {
 
     next();
 });
+
+router.beforeEach(loadLayoutMiddleware);
 
 export default router;

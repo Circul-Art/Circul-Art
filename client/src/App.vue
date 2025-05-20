@@ -1,14 +1,20 @@
 <template>
-    <div class="flex flex-col min-h-screen font-sans text-gray-800 antialiased">
-        <Navbar />
-        <main class="flex-grow">
+    <div
+        class="min-h-screen max-h-screen font-sans antialiased"
+        :class="{
+            'overflow-hidden': isOverflowHidden,
+            'overflow-auto': !isOverflowHidden
+        }"
+    >
+        <ContainerLayout>
             <router-view />
-        </main>
-        <Footer />
+        </ContainerLayout>
     </div>
 </template>
 
 <script setup lang="ts">
-import Navbar from './components/Navbar.vue';
-import Footer from './components/Footer.vue';
+import ContainerLayout from './layouts/AppContainerLayout.vue';
+import { useOverflow } from './composables/overflow';
+
+const { isOverflowHidden } = useOverflow();
 </script>
