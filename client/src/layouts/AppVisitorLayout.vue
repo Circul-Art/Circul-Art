@@ -5,6 +5,6 @@
 </template>
 
 <script setup lang="ts">
+import Footer from './components/Footer.vue';
 import Navbar from './visitor/Navbar.vue';
-import Footer from './visitor/Footer.vue';
 </script>
