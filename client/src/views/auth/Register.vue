@@ -199,7 +199,7 @@ import { useRouter } from 'vue-router';
 import Database from '../../utils/database.utils';
 import InputForm from '../../components/form/InputForm.vue';
 import { useToast } from 'vue-toastification';
-import TestimonialCarousel from '../../components/auth/TestimonialCarousel.vue';
+import TestimonialCarousel from '../../components/common/TestimonialCarousel.vue';
 import { defineForm, field, isValidForm } from 'vue-yup-form';
 import * as yup from 'yup';
 import { userErrorMessages } from '../../utils/errors/auth/users';

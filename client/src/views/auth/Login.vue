@@ -116,7 +116,7 @@ import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 import { useAuthStore } from '../../stores/auth';
 import LoadingOverlay from '../../components/LoadingOverlay.vue';
-import TestimonialCarousel from '../../components/auth/TestimonialCarousel.vue';
+import TestimonialCarousel from '../../components/common/TestimonialCarousel.vue';
 import InputForm from '../../components/form/InputForm.vue';
 import { defineForm, field, isValidForm } from 'vue-yup-form';
 import * as yup from 'yup';
