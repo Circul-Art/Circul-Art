@@ -1126,7 +1126,7 @@ import { ref } from 'vue';
 
 const mobileMenuOpen = ref(false);
 
-const scrollToSection = (sectionId) => {
+const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
@@ -1135,7 +1135,7 @@ const scrollToSection = (sectionId) => {
 };
 
 // Version mobile qui ferme le menu après la navigation
-const scrollToSectionMobile = (sectionId) => {
+const scrollToSectionMobile = (sectionId: string) => {
     mobileMenuOpen.value = false;
     setTimeout(() => {
         scrollToSection(sectionId);

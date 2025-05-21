@@ -102,6 +102,8 @@
 
 <script setup lang="ts">
 const goBack = () => {
-    window.history.length > 1 ? window.history.back() : (window.location = '/');
+    window.history.length > 1
+        ? window.history.back()
+        : (window.location.href = '/');
 };
 </script>
