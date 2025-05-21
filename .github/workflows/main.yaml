@@ -59,16 +59,15 @@ jobs:
             npm ci && 
             npm run build
           "
-
-      - name: deploy server
+      - name: Build locally
         run: |
-          sshpass -e ssh -o stricthostkeychecking=no ${{ secrets.APP_USER }}@${{ secrets.APP_HOST }} "
-            cd Circul-art/ && 
-            cd server && 
-            npm ci --verbose && 
-            npm run build &&
-            npm run start:prod
-          "
+          cd server
+          npm ci
+          npm run build
+      
+      - name: Upload to server
+        run: |
+          sshpass -e scp -o StrictHostKeyChecking=no -r server/dist ${{ secrets.APP_USER }}@${{ secrets.APP_HOST }}:/home/${{ secrets.APP_USER }}/Circul-art/server/ 
 
       - name: run migrations
         continue-on-error: true
