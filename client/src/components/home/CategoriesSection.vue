@@ -1,10 +1,10 @@
 <template>
     <section class="py-16">
         <div class="text-center mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">
                 Découvrez nos catégories de produits à louer
             </h2>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+            <p class="text-lg max-w-3xl mx-auto">
                 Circul'Art vous propose une sélection variée d'équipements
                 culturels. Parcourez nos catégories pour trouver ce dont vous
                 avez besoin.
@@ -17,11 +17,11 @@
                 <!-- Cinéma -->
                 <div class="p-6 flex flex-col items-center">
                     <div
-                        class="rounded-full bg-gray-100 w-10 h-10 flex items-center justify-center mb-2 shadow-sm border border-gray-200"
+                        class="rounded-full w-10 h-10 flex items-center justify-center mb-2 shadow-sm border"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 text-gray-700"
+                            class="h-5 w-5"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -40,10 +40,8 @@
                             />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">
-                        Cinéma
-                    </h3>
-                    <p class="text-gray-600 text-center">
+                    <h3 class="text-lg font-semibold mb-2">Cinéma</h3>
+                    <p class="text-center text-sm">
                         Louez des équipements de cinéma pour vos projets
                         professionnels et événements.
                     </p>
@@ -52,11 +50,11 @@
                 <!-- Théâtre -->
                 <div class="p-6 flex flex-col items-center">
                     <div
-                        class="rounded-full bg-gray-100 w-10 h-10 flex items-center justify-center mb-2 shadow-sm border border-gray-200"
+                        class="rounded-full w-10 h-10 flex items-center justify-center mb-2 shadow-sm border"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 text-gray-700"
+                            class="h-5 w-5"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -69,10 +67,8 @@
                             />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">
-                        Théâtre
-                    </h3>
-                    <p class="text-gray-600 text-center">
+                    <h3 class="text-lg font-semibold mb-2">Théâtre</h3>
+                    <p class="text-center text-sm">
                         Louez des équipements scéniques pour vos représentations
                         théâtrales.
                     </p>
@@ -99,11 +95,11 @@
                 <!-- Danse -->
                 <div class="p-6 flex flex-col items-center">
                     <div
-                        class="rounded-full bg-gray-100 w-10 h-10 flex items-center justify-center mb-2 shadow-sm border border-gray-200"
+                        class="rounded-full w-10 h-10 flex items-center justify-center mb-2 shadow-sm border"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 text-gray-700"
+                            class="h-5 w-5"
                             viewBox="0 0 24 24"
                         >
                             <path
@@ -113,10 +109,8 @@
                             />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">
-                        Danse
-                    </h3>
-                    <p class="text-gray-600 text-center">
+                    <h3 class="text-lg font-semibold mb-2">Danse</h3>
+                    <p class="text-center text-sm">
                         Équipez vos spectacles de danse avec notre matériel
                         spécialisé.
                     </p>
@@ -125,11 +119,11 @@
                 <!-- Musique -->
                 <div class="p-6 flex flex-col items-center">
                     <div
-                        class="rounded-full bg-gray-100 w-10 h-10 flex items-center justify-center mb-2 shadow-sm border border-gray-200"
+                        class="rounded-full w-10 h-10 flex items-center justify-center mb-2 shadow-sm border"
                     >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="h-5 w-5 text-gray-700"
+                            class="h-5 w-5"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
@@ -142,10 +136,8 @@
                             />
                         </svg>
                     </div>
-                    <h3 class="text-lg font-semibold text-gray-800 mb-2">
-                        Musique
-                    </h3>
-                    <p class="text-gray-600 text-center">
+                    <h3 class="text-lg font-semibold mb-2">Musique</h3>
+                    <p class="text-center text-sm">
                         Louez des instruments et équipements audio pour vos
                         événements musicaux.
                     </p>
@@ -156,13 +148,13 @@
         <div class="flex flex-row gap-6 justify-center mt-10">
             <a
                 href="#"
-                class="px-6 py-2 border border-black text-gray-800 font-medium uppercase tracking-wider transition-all hover:bg-gray-800 hover:text-white"
+                class="px-6 py-2 border font-medium uppercase tracking-wider transition-all hover:bg-secondary hover:text-primary"
             >
                 Louer
             </a>
             <a
                 href="#"
-                class="flex items-center gap-2 text-gray-800 font-medium uppercase tracking-wider hover:text-gray-600 transition-all group"
+                class="flex items-center gap-2 font-medium uppercase tracking-wider transition-all group"
             >
                 En savoir plus
                 <svg

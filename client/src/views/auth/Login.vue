@@ -1,18 +1,14 @@
 <template>
-    <div class="min-h-screen flex items-center justify-center bg-white">
+    <div class="min-h-screen flex items-center justify-center">
         <div
             class="flex flex-col md:flex-row w-full max-w-6xl mx-auto px-4 py-8 gap-8"
         >
             <div class="w-full md:w-1/2 flex flex-col justify-center">
-                <div class="flex justify-center md:justify-start mb-6">
-                    <img src="" alt="Circul'Art logo" class="h-10" />
-                </div>
-
                 <h1 class="text-3xl font-bold mb-4 text-center md:text-center">
                     Se connecter
                 </h1>
 
-                <p class="text-gray-700 mb-8 text-center md:text-center">
+                <p class="mb-8 text-center md:text-center">
                     Connectez vous à Circul'Art et donnez vie à vos projets tout
                     en contribuant à une économie circulaire.
                 </p>
@@ -47,23 +43,20 @@
                     />
 
                     <div class="text-sm text-center">
-                        <router-link
-                            to="/forgot-password"
-                            class="text-gray-700 underline hover:text-black"
-                        >
+                        <router-link to="/forgot-password" class="underline">
                             Vous avez oublié votre mot de passe?
                         </router-link>
                     </div>
 
                     <button
                         type="submit"
-                        class="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition font-semibold"
+                        class="w-full bg-secondary text-primary py-3 font-semibold"
                         :disabled="isLoading"
                     >
                         <div class="flex items-center justify-center">
                             <svg
                                 v-if="isLoading"
-                                class="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                                class="animate-spin -ml-1 mr-2 h-4 w-4 text-primary"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
@@ -90,11 +83,11 @@
                         </div>
                     </button>
 
-                    <div class="text-center text-sm text-gray-700 mt-4">
+                    <div class="text-center text-sm mt-4">
                         Vous n'avez pas de compte ?
                         <router-link
                             to="/register"
-                            class="underline font-medium text-black"
+                            class="underline font-medium"
                             >Créer mon compte</router-link
                         >
                     </div>
@@ -105,8 +98,6 @@
                 <TestimonialCarousel :autoplay-interval="6000" />
             </div>
         </div>
-
-        <LoadingOverlay :show="isLoading" message="Connexion en cours..." />
     </div>
 </template>
 
@@ -115,7 +106,6 @@ import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 import { useAuthStore } from '../../stores/auth';
-import LoadingOverlay from '../../components/LoadingOverlay.vue';
 import TestimonialCarousel from '../../components/common/TestimonialCarousel.vue';
 import InputForm from '../../components/form/InputForm.vue';
 import { defineForm, field, isValidForm } from 'vue-yup-form';

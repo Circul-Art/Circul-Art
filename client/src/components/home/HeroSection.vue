@@ -24,7 +24,7 @@
                                 class="w-full h-full object-cover"
                             />
                             <div
-                                class="absolute inset-0 bg-black opacity-50"
+                                class="absolute inset-0 bg-secondary opacity-50"
                             ></div>
                         </div>
                     </slide>
@@ -35,10 +35,14 @@
                 class="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 text-center relative z-10"
             >
                 <div class="max-w-4xl mx-auto">
-                    <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                    <h1
+                        class="text-4xl md:text-5xl font-bold mb-6 text-primary"
+                    >
                         La créativité commence par des choix responsables.
                     </h1>
-                    <p class="text-lg md:text-xl mb-8 leading-relaxed">
+                    <p
+                        class="text-lg md:text-xl mb-8 leading-relaxed text-primary"
+                    >
                         Nous vous offrons une plateforme dédiée à la location et
                         à la vente de matériel scénique et de production, pensée
                         pour les professionnels de la culture. Avec des
@@ -48,12 +52,12 @@
                     </p>
                     <div class="flex justify-center gap-4">
                         <button
-                            class="bg-white text-gray-800 px-8 py-3 font-medium hover:bg-gray-100 transition-colors"
+                            class="bg-primary text-secondary px-8 py-3 font-medium transition-colors"
                         >
                             Louer
                         </button>
                         <button
-                            class="text-white hover:bg-white hover:text-gray-800 px-8 py-3 font-medium border border-white transition-colors"
+                            class="text-primary hover:bg-primary hover:text-secondary px-8 py-3 font-medium border border-primary transition-colors"
                         >
                             Vendre
                         </button>

@@ -2,12 +2,10 @@
     <section class="py-16">
         <!-- Titre -->
         <div class="mb-12">
-            <h2
-                class="text-3xl md:text-4xl font-bold text-gray-800 mb-4 text-left"
-            >
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-left">
                 Contactez-nous
             </h2>
-            <p class="text-lg text-gray-600 max-w-3xl text-left">
+            <p class="text-lg max-w-3xl text-left">
                 Pour toute assistance, n'hésitez pas à nous contacter.
             </p>
         </div>
@@ -34,13 +32,11 @@
                                 />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
-                            Email
-                        </h3>
-                        <p class="text-gray-600 mb-2">support@circulart.com</p>
+                        <h3 class="text-xl font-semibold mb-2">Email</h3>
+                        <p class="mb-2">support@circulart.com</p>
                         <a
                             href="mailto:contact@circul-art.fr"
-                            class="text-gray-800 hover:underline"
+                            class="hover:underline"
                             >circulart@support.fr</a
                         >
                     </div>
@@ -63,13 +59,9 @@
                                 />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
-                            Téléphone
-                        </h3>
+                        <h3 class="text-xl font-semibold mb-2">Téléphone</h3>
                         <p class="text-gray-600 mb-2">Appelez-nous au</p>
-                        <a
-                            href="tel:+33123456789"
-                            class="text-gray-800 hover:underline"
+                        <a href="tel:+33123456789" class="hover:underline"
                             >+33 1 23 45 67 89</a
                         >
                     </div>
@@ -98,10 +90,8 @@
                                 />
                             </svg>
                         </div>
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">
-                            Bureau
-                        </h3>
-                        <address class="text-gray-800 not-italic">
+                        <h3 class="text-xl font-semibold mb-2">Bureau</h3>
+                        <address class="not-italic">
                             11 rue Abelard, Lille 59000, FR
                         </address>
                     </div>

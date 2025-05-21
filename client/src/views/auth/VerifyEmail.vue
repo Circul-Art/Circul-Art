@@ -1,14 +1,10 @@
 <template>
-    <div
-        class="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 py-6 px-4"
-    >
-        <div
-            class="relative bg-white p-8 rounded-lg shadow-xl w-full max-w-md text-center"
-        >
+    <div class="min-h-screen flex items-center justify-center py-6">
+        <div class="w-full max-w-2xl text-center">
             <div class="relative z-10">
                 <!-- Icônes d'état avec transition fluide -->
                 <div class="relative h-24 mb-8 mt-2">
-                    <!-- Spinner avec animation avancée pour chargement -->
+                    <!-- Spinner pour chargement -->
                     <transition name="fade" mode="out-in">
                         <div
                             v-if="loading"
@@ -16,81 +12,38 @@
                             class="absolute inset-0 flex items-center justify-center"
                         >
                             <svg
-                                class="w-20 h-20"
-                                viewBox="0 0 38 38"
+                                class="animate-spin h-16 w-16 text-secondary"
                                 xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
                             >
-                                <defs>
-                                    <linearGradient
-                                        id="spinner-gradient"
-                                        x1="8.042%"
-                                        y1="0%"
-                                        x2="65.682%"
-                                        y2="23.865%"
-                                    >
-                                        <stop
-                                            stop-color="#22c55e"
-                                            stop-opacity="0"
-                                            offset="0%"
-                                        ></stop>
-                                        <stop
-                                            stop-color="#22c55e"
-                                            stop-opacity=".631"
-                                            offset="63.146%"
-                                        ></stop>
-                                        <stop
-                                            stop-color="#22c55e"
-                                            offset="100%"
-                                        ></stop>
-                                    </linearGradient>
-                                </defs>
-                                <g fill="none" fill-rule="evenodd">
-                                    <g transform="translate(1 1)">
-                                        <path
-                                            d="M36 18c0-9.94-8.06-18-18-18"
-                                            stroke="url(#spinner-gradient)"
-                                            stroke-width="3"
-                                        >
-                                            <animateTransform
-                                                attributeName="transform"
-                                                type="rotate"
-                                                from="0 18 18"
-                                                to="360 18 18"
-                                                dur="1s"
-                                                repeatCount="indefinite"
-                                            ></animateTransform>
-                                        </path>
-                                        <circle
-                                            fill="#fff"
-                                            cx="36"
-                                            cy="18"
-                                            r="1"
-                                        >
-                                            <animateTransform
-                                                attributeName="transform"
-                                                type="rotate"
-                                                from="0 18 18"
-                                                to="360 18 18"
-                                                dur="1s"
-                                                repeatCount="indefinite"
-                                            ></animateTransform>
-                                        </circle>
-                                    </g>
-                                </g>
+                                <circle
+                                    class="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    stroke-width="4"
+                                ></circle>
+                                <path
+                                    class="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                ></path>
                             </svg>
                         </div>
 
-                        <!-- Succès avec animation à l'entrée -->
+                        <!-- Succès -->
                         <div
                             v-else-if="success || alreadyVerified"
                             key="success"
                             class="absolute inset-0 flex items-center justify-center"
                         >
                             <div
-                                class="p-6 bg-green-50 rounded-full shadow-sm transform transition-all duration-500 animate-pop-in"
+                                class="w-16 h-16 border rounded-full flex items-center justify-center"
                             >
                                 <svg
-                                    class="w-12 h-12 text-green-500"
+                                    class="w-8 h-8 text-secondary"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -99,24 +52,24 @@
                                     <path
                                         stroke-linecap="round"
                                         stroke-linejoin="round"
-                                        stroke-width="2.5"
+                                        stroke-width="2"
                                         d="M5 13l4 4L19 7"
                                     ></path>
                                 </svg>
                             </div>
                         </div>
 
-                        <!-- Erreur avec animation à l'entrée -->
+                        <!-- Erreur -->
                         <div
                             v-else
                             key="error"
                             class="absolute inset-0 flex items-center justify-center"
                         >
                             <div
-                                class="p-6 bg-red-50 rounded-full shadow-sm transform transition-all duration-500 animate-pop-in"
+                                class="w-16 h-16 border rounded-full flex items-center justify-center"
                             >
                                 <svg
-                                    class="w-12 h-12 text-red-500"
+                                    class="w-8 h-8 text-secondary"
                                     fill="none"
                                     stroke="currentColor"
                                     viewBox="0 0 24 24"
@@ -139,17 +92,14 @@
                     <transition name="fade-slide-down" mode="out-in">
                         <h1
                             :key="currentTitle"
-                            class="text-3xl font-bold mb-2 text-center bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent"
+                            class="text-3xl font-bold mb-10 text-center text-secondary"
                         >
                             {{ currentTitle }}
                         </h1>
                     </transition>
 
                     <transition name="fade-slide-up" mode="out-in">
-                        <p
-                            :key="currentMessage"
-                            class="text-gray-600 mb-8 leading-relaxed"
-                        >
+                        <p :key="currentMessage" class="mb-8">
                             {{ currentMessage }}
                         </p>
                     </transition>
@@ -158,12 +108,12 @@
                     <transition name="fade">
                         <div v-if="isExpired" class="mb-6">
                             <div
-                                class="flex items-center p-4 bg-gray-50 rounded-xl border border-gray-100"
+                                class="flex items-center p-4 border rounded-md"
                             >
-                                <div class="bg-amber-100 rounded-full p-2 mr-3">
+                                <div class="mr-3">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
-                                        class="h-5 w-5 text-amber-600"
+                                        class="h-5 w-5 text-secondary"
                                         fill="none"
                                         viewBox="0 0 24 24"
                                         stroke="currentColor"
@@ -177,14 +127,12 @@
                                     </svg>
                                 </div>
                                 <div class="text-left">
-                                    <div
-                                        class="text-sm font-semibold text-gray-700"
-                                    >
+                                    <div class="text-sm font-semibold">
                                         Besoin d'aide?
                                     </div>
                                     <a
-                                        href="mailto:support@devcanvas.com"
-                                        class="text-sm text-green-600 hover:underline"
+                                        href="mailto:contact@circul-art.fr"
+                                        class="text-sm text-secondary underline"
                                     >
                                         Contactez notre support
                                     </a>
@@ -197,7 +145,7 @@
                 <!-- Bouton d'action -->
                 <button
                     v-if="!loading"
-                    class="bg-green-600 hover:bg-green-700 text-white py-3 px-6 rounded-lg font-medium transition-colors w-full"
+                    class="bg-secondary text-primary py-3 px-6 font-medium w-full"
                     @click="redirectToLogin"
                 >
                     {{ buttonText }}
@@ -205,7 +153,6 @@
             </div>
         </div>
     </div>
-    <LoadingOverlay :show="loading" message="Vérification en cours..." />
 </template>
 
 <script setup lang="ts">
@@ -214,7 +161,6 @@ import { useRoute, useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 import Database from '../../utils/database.utils';
 import { verifyEmailMessages } from '../../utils/errors/auth/verifyEmail';
-import LoadingOverlay from '../../components/LoadingOverlay.vue';
 
 // États
 const loading = ref(true);
@@ -341,37 +287,5 @@ onMounted(async () => {
 .fade-slide-up-leave-to {
     opacity: 0;
     transform: translateY(10px);
-}
-
-@keyframes pulse-width {
-    0%,
-    100% {
-        width: 0%;
-    }
-
-    50% {
-        width: 100%;
-    }
-}
-
-@keyframes pop-in {
-    0% {
-        transform: scale(0.8);
-        opacity: 0;
-    }
-
-    70% {
-        transform: scale(1.1);
-        opacity: 1;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-.animate-pop-in {
-    animation: pop-in 0.5s cubic-bezier(0.26, 1.36, 0.68, 1);
 }
 </style>

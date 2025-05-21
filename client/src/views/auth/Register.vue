@@ -1,18 +1,14 @@
 <template>
-    <div class="min-h-screen flex items-center justify-center bg-white">
+    <div class="min-h-screen flex items-center justify-center">
         <div
             class="flex flex-col md:flex-row w-full max-w-6xl mx-auto px-4 py-8 gap-8"
         >
             <div class="w-full md:w-1/2 flex flex-col justify-center">
-                <div class="flex justify-center md:justify-start mb-6">
-                    <img src="" alt="Circul'Art logo" class="h-10" />
-                </div>
-
                 <h1 class="text-3xl font-bold mb-4 text-center md:text-center">
                     Créer un compte
                 </h1>
 
-                <p class="text-gray-700 mb-8 text-center md:text-center">
+                <p class="mb-8 text-center md:text-center">
                     Rejoignez Circul'Art et donnez vie à vos projets tout en
                     contribuant à une économie circulaire.
                 </p>
@@ -110,7 +106,7 @@
                         @blur="touchedFields.siret = true"
                     >
                         <template #hint>
-                            <div class="text-sm text-gray-500">
+                            <div class="text-sm">
                                 Le numéro SIRET doit comporter 14 chiffres sans
                                 espaces ni tirets.
                             </div>
@@ -132,7 +128,7 @@
                         @blur="touchedFields.password = true"
                     >
                         <template #hint>
-                            <div class="text-sm text-gray-500">
+                            <div class="text-sm">
                                 Le mot de passe doit contenir au moins 10
                                 caractères, une majuscule, une minuscule, un
                                 chiffre et un symbole.
@@ -142,13 +138,13 @@
 
                     <button
                         type="submit"
-                        class="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition font-semibold mt-6"
+                        class="w-full bg-secondary text-primary py-3 font-semibold mt-6"
                         :disabled="isLoading"
                     >
                         <div class="flex items-center justify-center">
                             <svg
                                 v-if="isLoading"
-                                class="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                                class="animate-spin -ml-1 mr-2 h-4 w-4 text-primary"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
@@ -175,11 +171,9 @@
                         </div>
                     </button>
 
-                    <div class="text-center text-sm text-gray-700 mt-4">
+                    <div class="text-center text-sm mt-4">
                         Vous avez déjà un compte ?
-                        <router-link
-                            to="/login"
-                            class="underline font-medium text-black"
+                        <router-link to="/login" class="underline font-medium"
                             >Se connecter</router-link
                         >
                     </div>

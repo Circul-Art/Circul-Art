@@ -2,12 +2,10 @@
     <section class="mx-auto flex flex-col lg:flex-row">
         <div class="lg:w-1/2 lg:pr-8 xl:pr-12 flex lg:items-center">
             <div class="max-w-lg lg:max-w-none lg:w-full">
-                <h2
-                    class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 text-left"
-                >
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-left">
                     Engagez-vous pour une culture durable et responsable
                 </h2>
-                <p class="text-lg text-gray-600 mb-6 text-left">
+                <p class="text-lg mb-6 text-left">
                     Circul'Art s'engage à promouvoir l'économie circulaire en
                     offrant des équipements culturels écologiques. Notre mission
                     est de soutenir les professionnels tout en respectant notre
@@ -16,7 +14,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
                     <div class="flex flex-col">
                         <div
-                            class="rounded-full bg-gray-100 w-10 h-10 flex items-center justify-center mb-2 shadow-sm border border-gray-200"
+                            class="rounded-full w-10 h-10 flex items-center justify-center mb-2 shadow-sm border"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -33,17 +31,17 @@
                                 />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                        <h3 class="text-lg font-bold mb-2">
                             Économie Circulaire
                         </h3>
-                        <p class="text-gray-600">
+                        <p class="text-sm">
                             Nous utilisons des matériaux durables et favorisons
                             la logistique locale pour réduire notre empreinte.
                         </p>
                     </div>
                     <div class="flex flex-col">
                         <div
-                            class="rounded-full bg-gray-100 w-10 h-10 flex items-center justify-center mb-2 shadow-sm border border-gray-200"
+                            class="rounded-full w-10 h-10 flex items-center justify-center mb-2 shadow-sm border"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -66,10 +64,10 @@
                                 />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-semibold text-gray-800 mb-2">
+                        <h3 class="text-lg font-bold mb-2">
                             Logistique Locale
                         </h3>
-                        <p class="text-gray-600">
+                        <p class="text-sm">
                             Tous nos équipements sont disponibles en réseau dans
                             nos entrepôts, sans livraison.
                         </p>
@@ -78,13 +76,13 @@
                 <div class="flex gap-6 justify-start">
                     <a
                         href="#"
-                        class="px-6 py-2 border border-black text-gray-800 font-medium uppercase tracking-wider transition-all hover:bg-gray-800 hover:text-white"
+                        class="px-6 py-2 border font-medium uppercase tracking-wider transition-all hover:bg-secondary hover:text-primary"
                     >
                         En savoir plus
                     </a>
                     <a
                         href="#"
-                        class="flex items-center gap-2 text-gray-800 font-medium uppercase tracking-wider hover:text-gray-600 transition-all group"
+                        class="flex items-center gap-2 text-secondary font-medium uppercase tracking-wider transition-all group"
                     >
                         Contact
                         <svg

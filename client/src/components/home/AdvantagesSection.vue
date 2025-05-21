@@ -2,15 +2,13 @@
     <section class="py-16">
         <div class="flex flex-col lg:flex-row lg:gap-26 mb-12">
             <div class="lg:w-1/2">
-                <h2
-                    class="text-3xl md:text-4xl font-bold text-gray-800 mb-6 lg:mb-0"
-                >
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 lg:mb-0">
                     Découvrez les avantages de choisir Circul'Art pour vos
                     besoins culturels
                 </h2>
             </div>
             <div class="lg:w-1/2">
-                <p class="text-lg text-gray-600">
+                <p class="text-lg">
                     Circul'Art vous offre des solutions rapides et fiables pour
                     la location et la vente d'équipements culturels. Notre
                     plateforme est conçue pour être éco-consciente, favorisant
@@ -25,11 +23,11 @@
             <!-- Avantage 1 -->
             <div class="flex flex-col items-start">
                 <div
-                    class="rounded-full bg-gray-100 w-12 h-12 flex items-center justify-center mb-4 shadow-sm border border-gray-200"
+                    class="rounded-full w-12 h-12 flex items-center justify-center mb-4 shadow-sm border"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6 text-gray-700"
+                        class="h-6 w-6"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -42,16 +40,16 @@
                         />
                     </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2 text-left">
+                <h3 class="text-lg font-semibold mb-2 text-left">
                     Des solutions rapides pour vos besoins en équipements
                     culturels
                 </h3>
-                <p class="text-gray-600 text-left mb-4">
+                <p class="text-left text-sm mb-4">
                     Louez ce dont vous avez besoin en un clin d'œil.
                 </p>
                 <a
                     href="#"
-                    class="flex items-center gap-2 text-gray-800 hover:text-gray-600 transition-all group uppercase"
+                    class="flex items-center gap-2 transition-all group uppercase font-semibold"
                 >
                     Louer
                     <svg
@@ -72,11 +70,11 @@
             <!-- Avantage 2 -->
             <div class="flex flex-col items-start">
                 <div
-                    class="rounded-full bg-gray-100 w-12 h-12 flex items-center justify-center mb-4 shadow-sm border border-gray-200"
+                    class="rounded-full w-12 h-12 flex items-center justify-center mb-4 shadow-sm border"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6 text-gray-700"
+                        class="h-6 w-6"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -89,16 +87,16 @@
                         />
                     </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2 text-left">
+                <h3 class="text-lg font-semibold mb-2 text-left">
                     Fiabilité et qualité au cœur de notre service.
                 </h3>
-                <p class="text-gray-600 text-left mb-4">
+                <p class="text-left text-sm mb-4">
                     Tous nos équipements sont vérifiés pour garantir votre
                     satisfaction.
                 </p>
                 <a
                     href="#"
-                    class="flex items-center gap-2 text-gray-800 hover:text-gray-600 transition-all group uppercase"
+                    class="flex items-center gap-2 transition-all group uppercase font-semibold"
                 >
                     Vendre
                     <svg
@@ -119,11 +117,11 @@
             <!-- Avantage 3 -->
             <div class="flex flex-col items-start">
                 <div
-                    class="rounded-full bg-gray-100 w-12 h-12 flex items-center justify-center mb-4 shadow-sm border border-gray-200"
+                    class="rounded-full w-12 h-12 flex items-center justify-center mb-4 shadow-sm border"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
-                        class="h-6 w-6 text-gray-700"
+                        class="h-6 w-6"
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
@@ -136,15 +134,15 @@
                         />
                     </svg>
                 </div>
-                <h3 class="text-lg font-semibold text-gray-800 mb-2 text-left">
+                <h3 class="text-lg font-semibold mb-2 text-left">
                     Engagement envers une économie circulaire et durable.
                 </h3>
-                <p class="text-gray-600 text-left mb-4">
+                <p class="text-left text-sm mb-4">
                     Contribuez à la durabilité en choisissant Circul'Art.
                 </p>
                 <a
                     href="#"
-                    class="flex items-center gap-2 text-gray-800 hover:text-gray-600 transition-all group uppercase"
+                    class="flex items-center gap-2 transition-all group uppercase font-semibold"
                 >
                     En savoir plus
                     <svg
