@@ -65,7 +65,7 @@ jobs:
           sshpass -e ssh -o stricthostkeychecking=no ${{ secrets.APP_USER }}@${{ secrets.APP_HOST }} "
             cd Circul-art/ && 
             cd server && 
-            npm ci && 
+            npm ci --verbose && 
             npm run build &&
             npm run start:prod
           "
