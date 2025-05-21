@@ -7,6 +7,7 @@ import router from './routes/index.ts';
 import Toast from 'vue-toastification';
 import 'vue-toastification/dist/index.css';
 import { vFlipVertical } from './directives/v-flip-vertical.ts';
+import InlineSvg from 'vue-inline-svg';
 
 const app = createApp(App);
 const pinia = createPinia();
@@ -17,5 +18,7 @@ app.use(router);
 app.use(Toast);
 
 app.directive('flip-vertical', vFlipVertical);
+
+app.component('InlineSvg', InlineSvg);
 
 app.mount('#app');

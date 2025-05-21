@@ -1,7 +1,7 @@
 <template>
     <footer class="bg-primary py-8">
-        <div class="w-full p-4">
-            <div class="flex flex-col lg:flex-row">
+        <div class="w-full py-4 mx-auto container px-4">
+            <div class="flex flex-col lg:flex-row lg:mb-8">
                 <!-- Brand Column -->
                 <div class="mb-8">
                     <router-link to="/" class="flex items-center mb-4">
@@ -14,13 +14,13 @@
                 </div>
                 <!-- Links Columns -->
                 <div
-                    class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-8 lg:flex-1"
+                    class="flex flex-col md:flex-row gap-12 mb-8 lg:gap-6 xl:gap-12 lg:flex-1"
                 >
-                    <div class="col-span-1">
+                    <div class="min-w-20">
                         <h3 class="font-medium text-on-primary mb-4">
                             L'entreprise
                         </h3>
-                        <ul class="space-y-4">
+                        <ul class="">
                             <li>
                                 <router-link
                                     to="/suivi-de-commande"
@@ -64,7 +64,7 @@
                         </ul>
                     </div>
 
-                    <div class="col-span-1">
+                    <div class="min-w-20">
                         <h3 class="font-medium text-on-primary mb-4">
                             Service client
                         </h3>
@@ -112,7 +112,7 @@
                         </ul>
                     </div>
 
-                    <div class="col-span-1">
+                    <div class="lg:mr-10 min-w-20">
                         <h3 class="font-medium text-on-primary mb-4">
                             Nous suivre
                         </h3>
@@ -161,7 +161,7 @@
                     </div>
                 </div>
                 <!-- Newsletter Column -->
-                <div class="mb-8">
+                <div class="mb-8 lg:mb-0 lg:flex-1">
                     <h3 class="font-medium text-on-primary mb-2">
                         Abonnez-vous
                     </h3>
