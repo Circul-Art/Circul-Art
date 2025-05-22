@@ -18,9 +18,7 @@
                         "{{ testimonial.quote }}"
                     </blockquote>
                     <div class="flex items-center justify-center mb-2 gap-2">
-                        <div
-                            class="w-10 h-10 bg-gray-200 rounded-full overflow-hidden"
-                        >
+                        <div class="w-10 h-10 rounded-full overflow-hidden">
                             <img
                                 v-if="testimonial.avatar"
                                 :src="testimonial.avatar"
@@ -32,7 +30,7 @@
                             <div class="font-medium">
                                 {{ testimonial.name }}
                             </div>
-                            <div class="text-gray-500">
+                            <div>
                                 {{ testimonial.role }}
                             </div>
                         </div>
@@ -44,9 +42,7 @@
                 <div class="flex items-center justify-center gap-4 mt-4">
                     <navigation class="flex items-center gap-2">
                         <template #prev>
-                            <button
-                                class="carousel-nav text-gray-500 hover:text-black"
-                            >
+                            <button class="carousel-nav">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="20"
@@ -66,9 +62,7 @@
                             </button>
                         </template>
                         <template #next>
-                            <button
-                                class="carousel-nav text-gray-500 hover:text-black"
-                            >
+                            <button class="carousel-nav">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
                                     width="20"

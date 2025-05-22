@@ -14,11 +14,11 @@
                 <div class="flex mb-12">
                     <div class="mr-6 flex flex-col items-center">
                         <div
-                            class="rounded-full bg-gray-800 text-white w-7 flex items-center justify-center font-bold text-lg"
+                            class="rounded-full bg-secondary text-primary w-7 flex items-center justify-center font-bold text-lg"
                         >
                             1
                         </div>
-                        <div class="h-full w-px bg-gray-300 mt-4"></div>
+                        <div class="h-full w-px bg-secondary mt-4"></div>
                     </div>
                     <div>
                         <p class="text-sm font-medium tracking-wider mb-2">
@@ -27,15 +27,15 @@
                         <h3 class="text-2xl font-bold mb-3">
                             Trouvez ou proposez votre équipement
                         </h3>
-                        <ul class="text-gray-600 space-y-2">
+                        <ul class="space-y-2">
                             <li class="flex items-start">
-                                <span class="text-gray-400 mr-2">•</span>
+                                <span class="mr-2">•</span>
                                 Vous cherchez du matériel ? Parcourez nos
                                 catégories (Cinéma, Théâtre, Danse, Musique) et
                                 trouvez ce qu'il vous faut.
                             </li>
                             <li class="flex items-start">
-                                <span class="text-gray-400 mr-2">•</span>
+                                <span class="mr-2">•</span>
                                 Vous avez du matériel à proposer ? Remplissez
                                 notre formulaire de dépôt en quelques clics avec
                                 photos et description.
@@ -48,11 +48,11 @@
                 <div class="flex mb-12">
                     <div class="mr-6 flex flex-col items-center">
                         <div
-                            class="rounded-full bg-gray-800 text-white w-7 flex items-center justify-center font-bold text-lg"
+                            class="rounded-full bg-secondary text-primary w-7 flex items-center justify-center font-bold text-lg"
                         >
                             2
                         </div>
-                        <div class="h-full w-px bg-gray-300 mt-4"></div>
+                        <div class="h-full w-px bg-secondary mt-4"></div>
                     </div>
                     <div>
                         <p class="text-sm font-medium tracking-wider mb-2">
@@ -61,14 +61,14 @@
                         <h3 class="text-2xl font-bold mb-3">
                             Sélectionnez vos options
                         </h3>
-                        <ul class="text-gray-600 space-y-2">
+                        <ul class="space-y-2">
                             <li class="flex items-start">
-                                <span class="text-gray-400 mr-2">•</span>
+                                <span class="mr-2">•</span>
                                 Pour louer : Choisissez vos dates de retrait et
                                 de retour.
                             </li>
                             <li class="flex items-start">
-                                <span class="text-gray-400 mr-2">•</span>
+                                <span class="mr-2">•</span>
                                 Pour vendre : Indiquez le prix souhaité et
                                 l'état de votre équipement.
                             </li>
@@ -80,11 +80,11 @@
                 <div class="flex mb-12">
                     <div class="mr-6 flex flex-col items-center">
                         <div
-                            class="rounded-full bg-gray-800 text-white w-7 flex items-center justify-center font-bold text-lg"
+                            class="rounded-full bg-secondary text-primary w-7 flex items-center justify-center font-bold text-lg"
                         >
                             3
                         </div>
-                        <div class="h-full w-px bg-gray-300 mt-4"></div>
+                        <div class="h-full w-px bg-secondary mt-4"></div>
                     </div>
                     <div>
                         <p class="text-sm font-medium tracking-wider mb-2">
@@ -93,9 +93,9 @@
                         <h3 class="text-2xl font-bold mb-3">
                             Créez votre compte professionnel ou connectez-vous
                         </h3>
-                        <ul class="text-gray-600 space-y-2">
+                        <ul class="space-y-2">
                             <li class="flex items-start">
-                                <span class="text-gray-400 mr-2">•</span>
+                                <span class="mr-2">•</span>
                                 Que vous souhaitiez louer ou vendre, créez votre
                                 espace personnel pour suivre vos opérations en
                                 toute sécurité.
@@ -108,11 +108,11 @@
                 <div class="flex mb-12">
                     <div class="mr-6 flex flex-col items-center">
                         <div
-                            class="rounded-full bg-gray-800 text-white w-7 flex items-center justify-center font-bold text-lg"
+                            class="rounded-full bg-secondary text-primary w-7 flex items-center justify-center font-bold text-lg"
                         >
                             4
                         </div>
-                        <div class="h-full w-px bg-gray-300 mt-4"></div>
+                        <div class="h-full w-px bg-secondary mt-4"></div>
                     </div>
                     <div>
                         <p class="text-sm font-medium tracking-wider mb-2">
@@ -121,15 +121,15 @@
                         <h3 class="text-2xl font-bold mb-3">
                             Confirmez votre engagement
                         </h3>
-                        <ul class="text-gray-600 space-y-2">
+                        <ul class="space-y-2">
                             <li class="flex items-start">
-                                <span class="text-gray-400 mr-2">•</span>
+                                <span class="mr-2">•</span>
                                 Pour louer : Signez votre contrat de location en
                                 ligne et effectuez le paiement sécurisé
                                 (location + caution).
                             </li>
                             <li class="flex items-start">
-                                <span class="text-gray-400 mr-2">•</span>
+                                <span class="mr-2">•</span>
                                 Pour vendre : Attendez la validation de votre
                                 matériel par notre équipe.
                             </li>
@@ -141,7 +141,7 @@
                 <div class="flex">
                     <div class="mr-6 flex flex-col items-center">
                         <div
-                            class="rounded-full bg-gray-800 text-white w-7 flex items-center justify-center font-bold text-lg"
+                            class="rounded-full bg-secondary text-primary w-7 flex items-center justify-center font-bold text-lg"
                         >
                             5
                         </div>
@@ -153,14 +153,14 @@
                         <h3 class="text-2xl font-bold mb-3">
                             Récupérez ou déposez en entrepôt
                         </h3>
-                        <ul class="text-gray-600 space-y-2">
+                        <ul class="space-y-2">
                             <li class="flex items-start">
-                                <span class="text-gray-400 mr-2">•</span>
+                                <span class="mr-2">•</span>
                                 Loueurs : Retirez votre matériel directement
                                 dans l'entrepôt sélectionné.
                             </li>
                             <li class="flex items-start">
-                                <span class="text-gray-400 mr-2">•</span>
+                                <span class="mr-2">•</span>
                                 Vendeurs : Après validation, déposez votre
                                 matériel dans l'entrepôt partenaire.
                             </li>
