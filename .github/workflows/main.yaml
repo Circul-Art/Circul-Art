@@ -1,4 +1,5 @@
 name: CD
+
 on:
   push:
     branches: [develop]
@@ -27,12 +28,6 @@ jobs:
       - name: Install root dependencies
         run: npm ci
 
-      - name: Install client dependencies
-        run: cd client && npm ci
-
-      - name: Install server dependencies
-        run: cd server && npm ci
-
       - name: Check code formatting
         run: npm run format:check
 
@@ -47,36 +42,25 @@ jobs:
       SSHPASS: ${{ secrets.APP_PASS }}
 
     steps:
-      - name: APT UPDATE and INSTALL SSHPASS
-        run: sudo apt update && sudo apt install sshpass
+      - name: Install sshpass
+        run: sudo apt update && sudo apt install -y sshpass
 
-      - name: deploy client
+      - name: Deploy Dockerized app on VPS
         run: |
-          sshpass -e ssh -o stricthostkeychecking=no ${{ secrets.APP_USER }}@${{ secrets.APP_HOST }} "
-            cd Circul-art/ && 
-            git pull origin develop && 
-            cd client && 
-            npm ci && 
-            npm run build
-          "
-      - name: deploy server
-        run: |
-          sshpass -e ssh -o stricthostkeychecking=no ${{ secrets.APP_USER }}@${{ secrets.APP_HOST }} "
-            cd Circul-art/ && 
-            cd server && 
-            npm ci --offline --verbose && 
-            npm run build
+          sshpass -e ssh -o StrictHostKeyChecking=no ${{ secrets.APP_USER }}@${{ secrets.APP_HOST }} "
+            cd Circul-Art &&
+            git pull origin develop &&
+            docker compose down &&
+            docker compose up --build -d
           "
 
-      - name: run migrations
+      - name: Run migrations
         continue-on-error: true
         run: |
-          sshpass -e ssh -o stricthostkeychecking=no ${{ secrets.APP_USER }}@${{ secrets.APP_HOST }} "
-            cd Circul-art/ &&
-            cd server &&
-            npm run migration:run || {
-              echo '⚠️ Migration failed with error code $?';
-              echo '⚠️ This might be normal if tables already exist. Continuing deployment...';
+          sshpass -e ssh -o StrictHostKeyChecking=no ${{ secrets.APP_USER }}@${{ secrets.APP_HOST }} "
+            cd Circul-Art &&
+            docker compose exec backend npm run migration:run || {
+              echo '⚠️ Migration failed (peut-être déjà appliquée). On continue...';
               exit 0;
             }
           "
