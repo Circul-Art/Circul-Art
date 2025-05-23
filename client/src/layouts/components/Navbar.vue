@@ -119,6 +119,8 @@ import xmark from '../../assets/xmark.svg';
 import { ref } from 'vue';
 import { useOverflow } from '../../composables/overflow';
 import MenuCategories from './MenuCategories.vue';
+import { useRoute } from 'vue-router';
+import { watch } from 'vue';
 
 const isMenuMobileOpen = ref(false);
 const { setOverflow } = useOverflow();
@@ -127,4 +129,10 @@ function toggleMenuMobile() {
     isMenuMobileOpen.value = !isMenuMobileOpen.value;
     setOverflow(isMenuMobileOpen.value);
 }
+
+const route = useRoute();
+watch(route, () => {
+    isMenuMobileOpen.value = false;
+    setOverflow(false);
+});
 </script>
