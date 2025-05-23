@@ -1,7 +1,7 @@
 <template>
     <div @mouseenter="openMenu" @mouseleave="closeMenu">
         <button
-            class="flex items-center justify-center gap-1 cursor-pointer"
+            class="flex items-center justify-center gap-1 cursor-pointer relative"
             @focus="openMenu"
             @focusout="closeMenu"
         >
@@ -9,6 +9,10 @@
             <span>
                 <img v-flip-vertical="!isMenuOpen" :src="chevron" />
             </span>
+            <div
+                class="absolute w-full top-0 left-0"
+                :class="isMenuOpen ? 'h-[calc(100%+2rem)]' : 'h-full'"
+            ></div>
         </button>
         <section
             v-if="isMenuOpen"
