@@ -39,7 +39,7 @@
                             </li>
                             <li class="mr-6 xl:mr-8">
                                 <router-link
-                                    to="/vente"
+                                    to="/sell-product"
                                     class="flex items-center"
                                 >
                                     <span

@@ -8,14 +8,6 @@ const routes: RouteRecordRaw[] = [
         meta: { title: 'Accueil' }
     },
     {
-        path: '/docs',
-        name: 'Documentation',
-        component: () => import('../views/Documentation.vue'),
-        meta: {
-            title: 'Documentation'
-        }
-    },
-    {
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
         component: () => import('../views/NotFound.vue'),
@@ -75,6 +67,15 @@ const routes: RouteRecordRaw[] = [
         component: () => import('../views/Profile.vue'),
         meta: {
             title: 'Mon profil',
+            requiresAuth: true
+        }
+    },
+    {
+        path: '/sell-product',
+        name: 'SellProduct',
+        component: () => import('../views/SellProductPage.vue'),
+        meta: {
+            title: 'Vendre un produit',
             requiresAuth: true
         }
     }
