@@ -56,11 +56,12 @@
                         >
                             Louer
                         </button>
-                        <button
+                        <router-link
+                            to="/sell-product"
                             class="text-primary hover:bg-primary hover:text-secondary px-8 py-3 font-medium border border-primary transition-colors"
                         >
                             Vendre
-                        </button>
+                        </router-link>
                     </div>
                 </div>
             </div>
