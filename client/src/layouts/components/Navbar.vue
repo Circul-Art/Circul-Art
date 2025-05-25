@@ -66,48 +66,7 @@
                     </button>
                 </div>
             </div>
-            <div v-if="isMenuMobileOpen" class="lg:hidden mt-6 flex-1">
-                <p class="text-sm font-semibold mb-4">Catégories</p>
-                <nav>
-                    <ul class="flex flex-col gap-4">
-                        <li>
-                            <router-link
-                                to="/categories/cinema"
-                                class="flex items-center"
-                            >
-                                <span class="text-on-primary">Cinéma</span>
-                            </router-link>
-                        </li>
-                        <li>
-                            <router-link
-                                to="/categories/theatre"
-                                class="flex items-center"
-                            >
-                                <span class="text-on-primary">Théâtre</span>
-                            </router-link>
-                        </li>
-                        <li>
-                            <router-link
-                                to="/categories/danse"
-                                class="flex items-center"
-                            >
-                                <span class="text-on-primary">Danse</span>
-                            </router-link>
-                        </li>
-                        <li>
-                            <router-link
-                                to="/categories/musique"
-                                class="flex items-center"
-                            >
-                                <span class="text-on-primary">Musique</span>
-                            </router-link>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="mt-4 flex flex-col gap-4">
-                    <slot name="navbar-mobile-actions" />
-                </div>
-            </div>
+            <MenuMobile v-if="isMenuMobileOpen" />
         </div>
     </header>
 </template>
@@ -121,6 +80,7 @@ import { useOverflow } from '../../composables/overflow';
 import MenuCategories from './MenuCategories.vue';
 import { useRoute } from 'vue-router';
 import { watch } from 'vue';
+import MenuMobile from './MenuMobile.vue';
 
 const isMenuMobileOpen = ref(false);
 const { setOverflow } = useOverflow();

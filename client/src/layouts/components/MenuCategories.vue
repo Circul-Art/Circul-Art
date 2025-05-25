@@ -23,36 +23,19 @@
                     <h3 class="text-sm font-semibold mb-4">Catégories</h3>
                     <nav>
                         <ul class="flex flex-col gap-4">
-                            <li>
+                            <li
+                                v-for="category in CATEGORIES"
+                                :key="category.URI"
+                            >
                                 <router-link
-                                    to="/categories/cinema"
+                                    :to="`/categories/${category.URI}`"
                                     class="flex items-center"
                                 >
-                                    <span class="text-on-primary">Cinéma</span>
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link
-                                    to="/categories/theatre"
-                                    class="flex items-center"
-                                >
-                                    <span class="text-on-primary">Théâtre</span>
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link
-                                    to="/categories/danse"
-                                    class="flex items-center"
-                                >
-                                    <span class="text-on-primary">Danse</span>
-                                </router-link>
-                            </li>
-                            <li>
-                                <router-link
-                                    to="/categories/musique"
-                                    class="flex items-center"
-                                >
-                                    <span class="text-on-primary">Musique</span>
+                                    <span
+                                        class="text-on-primary first-letter:uppercase"
+                                    >
+                                        {{ category.NAME }}
+                                    </span>
                                 </router-link>
                             </li>
                         </ul>
@@ -212,6 +195,9 @@
 import { ref } from 'vue';
 import placeholderImage from '../../assets/placeholder-img.jpg';
 import chevron from '../../assets/chevron.svg';
+import { CATEGORIES } from '../../constants/categories.constants';
+import { watch } from 'vue';
+import { useRoute } from 'vue-router';
 
 const isMenuOpen = ref(false);
 const isMenuProceedClosing = ref(false);
@@ -229,4 +215,10 @@ function closeMenu() {
         }
     }, 200);
 }
+
+const route = useRoute();
+
+watch(route, () => {
+    isMenuOpen.value = false;
+});
 </script>

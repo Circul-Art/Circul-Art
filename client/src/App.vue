@@ -7,7 +7,7 @@
         }"
     >
         <ContainerLayout>
-            <div class="w-full px-6 sm:px-8 lg:px-10 mx-auto container">
+            <div class="w-full sm:px-8 lg:px-10 mx-auto container">
                 <router-view />
             </div>
         </ContainerLayout>
