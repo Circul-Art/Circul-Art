@@ -17,8 +17,11 @@ async function seed() {
     });
 
     console.log('Database seeding completed successfully');
-  } catch (error) {
-    console.error('Error during database seeding:', error);
+  } catch (error: unknown) {
+    console.error(
+      'Error during database seeding:',
+      error instanceof Error ? error.message : String(error),
+    );
     process.exit(1);
   } finally {
     if (dataSource && dataSource.isInitialized) {
