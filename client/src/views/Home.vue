@@ -8,7 +8,11 @@
         <TestimonialCarousel />
     </div>
     <NewsletterSection />
-    <ContactSection />
+    <ContactSection>
+        <template #intro>
+            <p>Pour toute assistance, n'hésitez pas à nous contacter.</p>
+        </template>
+    </ContactSection>
 </template>
 
 <script setup lang="ts">

@@ -17,17 +17,9 @@ const routes: RouteRecordRaw[] = [
         }
     },
     {
-        path: '/docs',
-        name: 'Documentation',
-        component: () => import('../views/Documentation.vue'),
-        meta: {
-            title: 'Documentation'
-        }
-    },
-    {
         path: '/categories/:category',
         name: 'Categories',
-        component: () => import('../views/categories/Index.vue')
+        component: () => import('../views/Categories.vue')
     },
     {
         path: '/login',

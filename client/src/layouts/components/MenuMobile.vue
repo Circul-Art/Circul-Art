@@ -3,13 +3,13 @@
         <p class="text-sm font-semibold mb-4">Catégories</p>
         <nav>
             <ul class="flex flex-col gap-4">
-                <li v-for="category in CATEGORIES" :key="category.URI">
+                <li v-for="category in categoriesMock" :key="category.uri">
                     <router-link
-                        :to="`/categories/${category.URI}`"
+                        :to="`/categories/${category.uri}`"
                         class="flex items-center"
                     >
                         <span class="text-on-primary first-letter:uppercase">
-                            {{ category.NAME }}
+                            {{ category.name }}
                         </span>
                     </router-link>
                 </li>
@@ -22,5 +22,5 @@
 </template>
 
 <script setup lang="ts">
-import { CATEGORIES } from '../../constants/categories.constants';
+import { categoriesMock } from '../../mock/categories.mock';
 </script>
