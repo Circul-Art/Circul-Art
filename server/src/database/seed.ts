@@ -4,7 +4,6 @@ import { getTypeOrmConfig } from '../config/database.config';
 import { CategorySeeder } from './seeders/category.seeder';
 import { SubcategorySeeder } from './seeders/sub-category.seeder';
 
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 async function seed(): Promise<void> {
   const config = getTypeOrmConfig();
   const dataSource = new DataSource(config);
