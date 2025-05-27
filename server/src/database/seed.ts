@@ -1,19 +1,21 @@
 import { DataSource } from 'typeorm';
-import { runSeeders } from 'typeorm-extension';
+import { runSeeders, Seeder } from 'typeorm-extension';
 import { getTypeOrmConfig } from '../config/database.config';
 import { CategorySeeder } from './seeders/category.seeder';
 import { SubcategorySeeder } from './seeders/sub-category.seeder';
 
-async function seed() {
+async function seed(): Promise<void> {
   const config = getTypeOrmConfig();
   const dataSource = new DataSource(config);
 
   try {
     await dataSource.initialize();
 
+    const seeders: (new () => Seeder)[] = [CategorySeeder, SubcategorySeeder];
+
     // Run seeders
     await runSeeders(dataSource, {
-      seeds: [CategorySeeder, SubcategorySeeder],
+      seeds: seeders,
     });
 
     console.log('Database seeding completed successfully');
