@@ -1,7 +1,7 @@
 <template>
     <header
         class="bg-primary sticky top-0 z-50"
-        :class="isMenuMobileOpen ? 'h-screen' : 'h-auto'"
+        :class="isMenuMobileOpen ? 'h-screen' : 'h-[7vh]'"
     >
         <div class="py-4 flex flex-col h-full mx-auto container px-4">
             <div class="flex flex-row justify-between items-center">

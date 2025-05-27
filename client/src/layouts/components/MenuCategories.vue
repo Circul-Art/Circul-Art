@@ -7,7 +7,7 @@
         >
             <span class="text-on-primary whitespace-nowrap">Catégories</span>
             <span>
-                <img v-flip-vertical="!isMenuOpen" :src="chevron" />
+                <img v-flip-vertical="isMenuOpen" :src="chevron" />
             </span>
             <div
                 class="absolute w-full top-0 left-0"
@@ -16,7 +16,7 @@
         </button>
         <section
             v-if="isMenuOpen"
-            class="hidden lg:block absolute bg-primary top-16 left-0 border-b border-on-primary shadow-lg w-full z-50 animate-fade-down animate-duration-[450ms]"
+            class="absolute bg-primary top-16 left-0 border-b border-on-primary shadow-lg w-full z-50 animate-fade-down animate-duration-[450ms]"
         >
             <div class="flex flex-row mx-auto container mb-8 px-4">
                 <div class="mr-16">
@@ -24,17 +24,17 @@
                     <nav>
                         <ul class="flex flex-col gap-4">
                             <li
-                                v-for="category in CATEGORIES"
-                                :key="category.URI"
+                                v-for="category in categoriesMock"
+                                :key="category.uri"
                             >
                                 <router-link
-                                    :to="`/categories/${category.URI}`"
+                                    :to="`/categories/${category.uri}`"
                                     class="flex items-center"
                                 >
                                     <span
                                         class="text-on-primary first-letter:uppercase"
                                     >
-                                        {{ category.NAME }}
+                                        {{ category.name }}
                                     </span>
                                 </router-link>
                             </li>
@@ -195,7 +195,7 @@
 import { ref } from 'vue';
 import placeholderImage from '../../assets/placeholder-img.jpg';
 import chevron from '../../assets/chevron.svg';
-import { CATEGORIES } from '../../constants/categories.constants';
+import { categoriesMock } from '../../mock/categories.mock';
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';
 
