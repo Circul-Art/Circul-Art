@@ -1,8 +1,7 @@
 import { DataSource } from 'typeorm';
-import { Seeder } from 'typeorm-extension';
 import { Category } from '../../categories/entities/category.entity';
 
-export class CategorySeeder implements Seeder {
+export class CategorySeeder {
   async run(dataSource: DataSource): Promise<void> {
     const repository = dataSource.getRepository(Category);
 

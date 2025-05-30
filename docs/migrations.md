@@ -42,6 +42,57 @@ docker compose exec backend npm run migration:run
 docker compose exec backend npm run migration:revert
 ```
 
+
+## Seeding de données
+
+Le projet utilise un système de seeding personnalisé pour peupler la base de données avec des données initiales essentielles au fonctionnement de l'application.
+
+### Fonctionnement des seeds
+
+Les seeds sont organisés en classes qui implémentent une interface `Seeder` avec une méthode `run()`. Chaque seeder est responsable d'insérer un type spécifique de données dans la base de données.
+
+### Exécuter les seeds
+
+Pour exécuter tous les seeds configurés :
+
+```
+docker compose exec backend npm run seed
+```
+
+### Ajouter un nouveau seeder
+
+1. Créez un fichier pour votre seeder dans le dossier `src/database/seeders/` (par exemple `mon-entite.seeder.ts`)
+2. Implémentez l'interface `Seeder` avec une méthode `run()`
+3. Ajoutez votre seeder à la liste des seeders dans `src/database/seed.ts`
+
+Exemple de structure d'un seeder :
+
+```typescript
+import { DataSource } from 'typeorm';
+import { MonEntite } from '../../entities/mon-entite.entity';
+
+export class MonEntiteSeeder {
+  async run(dataSource: DataSource): Promise<void> {
+    const repository = dataSource.getRepository(MonEntite);
+    
+    // Vérifier si les données existent déjà
+    const count = await repository.count();
+    if (count > 0) {
+      console.log('MonEntite data already exists, skipping seed');
+      return;
+    }
+    
+    // Insérer les données
+    await repository.insert([
+      { nom: 'Exemple 1', description: 'Description 1' },
+      { nom: 'Exemple 2', description: 'Description 2' }
+    ]);
+    
+    console.log(`Inserted ${count} MonEntite records`);
+  }
+}
+```
+
 ## Structure des migrations
 
 Les migrations sont stockées dans le dossier "migrations" et sont également montées en volume dans Docker pour assurer une synchronisation entre votre environnement local et le conteneur.

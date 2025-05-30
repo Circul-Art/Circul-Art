@@ -1,8 +1,30 @@
 import { DataSource } from 'typeorm';
-import { runSeeders } from 'typeorm-extension';
 import { getTypeOrmConfig } from '../config/database.config';
 import { CategorySeeder } from './seeders/category.seeder';
 import { SubcategorySeeder } from './seeders/sub-category.seeder';
+
+interface Seeder {
+  run(dataSource: DataSource): Promise<void>;
+}
+
+// Type pour le constructeur du seeder
+type SeederConstructor = new () => Seeder;
+
+// Liste des seeders à exécuter
+const SEEDERS: Array<{ name: string; constructor: SeederConstructor }> = [
+  { name: 'CategorySeeder', constructor: CategorySeeder },
+  { name: 'SubcategorySeeder', constructor: SubcategorySeeder },
+];
+
+// Fonction pour exécuter un seeder
+async function executeSeed(
+  dataSource: DataSource,
+  seederInfo: { name: string; constructor: SeederConstructor },
+): Promise<void> {
+  console.log(`Running ${seederInfo.name}...`);
+  const seeder = new seederInfo.constructor();
+  await seeder.run(dataSource);
+}
 
 async function seed(): Promise<void> {
   const config = getTypeOrmConfig();
@@ -11,9 +33,10 @@ async function seed(): Promise<void> {
   try {
     await dataSource.initialize();
 
-    await runSeeders(dataSource, {
-      seeds: [CategorySeeder, SubcategorySeeder],
-    });
+    // Exécution séquentielle des seeders
+    for (const seederInfo of SEEDERS) {
+      await executeSeed(dataSource, seederInfo);
+    }
 
     console.log('Database seeding completed successfully');
   } catch (error: unknown) {
