@@ -6,9 +6,12 @@ import {
   UpdateDateColumn,
   ManyToMany,
   JoinTable,
+  OneToMany,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Role } from './role.entity';
+import { Sale } from '../../sales/entities/sale.entity';
+import { Address } from '../../addresses/entities/address.entity';
 
 @Entity()
 export class User {
@@ -83,4 +86,29 @@ export class User {
     },
   })
   roles: Role[];
+
+  @ApiProperty({
+    type: () => [Sale],
+    description: 'Sales made by this user',
+  })
+  @OneToMany(() => Sale, (sale) => sale.user)
+  sales: Sale[];
+
+  @ApiProperty({
+    type: () => [Address],
+    description: 'Addresses associated with this user',
+  })
+  @ManyToMany(() => Address, (address) => address.users)
+  @JoinTable({
+    name: 'user_addresses',
+    joinColumn: {
+      name: 'user_id',
+      referencedColumnName: 'id',
+    },
+    inverseJoinColumn: {
+      name: 'address_id',
+      referencedColumnName: 'id',
+    },
+  })
+  addresses: Address[];
 }

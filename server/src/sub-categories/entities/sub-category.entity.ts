@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Category } from '../../categories/entities/category.entity';
+import { SubSubcategory } from 'src/sub-subcategories/entities/sub-subcategory.entity';
 
 @Entity()
 export class Subcategory {
@@ -52,4 +53,14 @@ export class Subcategory {
     },
   })
   categories: Category[];
+
+  @ApiProperty({
+    type: () => [SubSubcategory],
+    description: 'Sub-subcategories belonging to this subcategory',
+  })
+  @ManyToMany(
+    () => SubSubcategory,
+    (subSubcategory) => subSubcategory.subcategories,
+  )
+  subSubcategories: SubSubcategory[];
 }

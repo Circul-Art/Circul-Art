@@ -2,6 +2,9 @@ import { DataSource } from 'typeorm';
 import { getTypeOrmConfig } from '../config/database.config';
 import { CategorySeeder } from './seeders/category.seeder';
 import { SubcategorySeeder } from './seeders/sub-category.seeder';
+import { SubSubcategorySeeder } from './seeders/sub-subcategory.seeder';
+import { ProductSeeder } from './seeders/product.seeder';
+import { WarehouseSeeder } from './seeders/warehouse.seeder';
 
 interface Seeder {
   run(dataSource: DataSource): Promise<void>;
@@ -14,6 +17,9 @@ type SeederConstructor = new () => Seeder;
 const SEEDERS: Array<{ name: string; constructor: SeederConstructor }> = [
   { name: 'CategorySeeder', constructor: CategorySeeder },
   { name: 'SubcategorySeeder', constructor: SubcategorySeeder },
+  { name: 'SubSubcategorySeeder', constructor: SubSubcategorySeeder },
+  { name: 'ProductSeeder', constructor: ProductSeeder },
+  { name: 'WarehouseSeeder', constructor: WarehouseSeeder },
 ];
 
 // Fonction pour exécuter un seeder
