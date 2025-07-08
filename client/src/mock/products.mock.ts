@@ -1,23 +1,29 @@
 import type { Product } from '../interfaces/product.interface';
-import { subcategoriesMock } from './subcategories.mock';
+import { subSubcategoriesMock } from './subsubcateogires.mock';
 
 export const productsMock: Product[] = [
     {
         id: 1,
         name: 'Guitare électrique Stratocaster',
+        uri: 'guitare-electrique-stratocaster',
         brand: 'Fender',
         price: 25,
-        subcategory: subcategoriesMock.find(
-            (subcategory) => subcategory.uri === 'guitar'
+        description:
+            'La Fender Stratocaster est une guitare électrique emblématique, reconnue pour son confort de jeu, sa polyvalence et son son cristallin. Idéale pour les concerts, les répétitions, les enregistrements studio ou les spectacles live. Modèle professionnel, livré avec son étui rigide.',
+        subsubcategory: subSubcategoriesMock.find(
+            (subsubcategory) => subsubcategory.uri === 'guitars'
         )!
     },
     {
         id: 2,
         name: 'Batterie acoustique Stage Custom',
+        uri: 'batterie-acoustique-stage-custom',
         brand: 'Yamaha',
+        description:
+            'La batterie acoustique Yamaha Stage Custom est parfaite pour les musiciens professionnels et amateurs. Avec ses fûts en bouleau, elle offre un son riche et chaleureux. Idéale pour les concerts, les répétitions, les enregistrements studio ou les spectacles live.',
         price: 45,
-        subcategory: subcategoriesMock.find(
-            (subcategory) => subcategory.uri === 'drums'
+        subsubcategory: subSubcategoriesMock.find(
+            (subsubcategory) => subsubcategory.uri === 'drums'
         )!
     }
 ];

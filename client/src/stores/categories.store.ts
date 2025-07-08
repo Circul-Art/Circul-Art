@@ -1,6 +1,5 @@
 import { defineStore } from 'pinia';
 import { ref, type Ref } from 'vue';
-import { CategoriesService } from '../services/categories.service';
 import type { Category } from '../interfaces/category.interface';
 
 export const useCategoriesStore = defineStore('categories', () => {
@@ -8,17 +7,21 @@ export const useCategoriesStore = defineStore('categories', () => {
     const category: Ref<Category | null> = ref(null);
     const isLoading: Ref<boolean> = ref(false);
 
-    async function getCategoryByUri(categoryUri: string) {
-        isLoading.value = true;
-        category.value =
-            await CategoriesService.fetchCategoryByUri(categoryUri);
-        isLoading.value = false;
-    }
-
     return {
+        // state
         categories,
         category,
-        getCategoryByUri,
-        isLoading
+        isLoading,
+
+        // actions
+        setCategories(newCategories: Category[]) {
+            categories.value = newCategories;
+        },
+        setCategory(newCategory: Category | null) {
+            category.value = newCategory;
+        },
+        setIsLoading(loading: boolean) {
+            isLoading.value = loading;
+        }
     };
 });

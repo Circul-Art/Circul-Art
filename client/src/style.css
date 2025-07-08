@@ -1,5 +1,8 @@
 @import 'tailwindcss';
 @import 'tailwindcss-animated';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
 
 @theme {
     --color-*: initial;
@@ -21,14 +24,70 @@
     --color-gray: #d1d5dc;
 }
 
-h1 {
-    @apply text-4xl md:text-5xl font-bold;
+@theme {
+    --animate-fade-in-down: fade-in-down 1s ease-in 1 forwards;
+    @keyframes fade-in-down {
+        0% {
+            opacity: 0;
+            transform: 'translate3d(0, -100%, 0)';
+        }
+        100% {
+            opacity: 1;
+            transform: 'translate3d(0, 0, 0)';
+        }
+    }
+
+    --animate-fade-out-up: fade-out-up 1s ease-in-out 1 forwards;
+    @keyframes fade-out-up {
+        0% {
+            transform: 'translate3d(0, 0, 0)';
+        }
+        100% {
+            transform: 'translate3d(0, -100%, 0)';
+        }
+    }
 }
 
-h2 {
-    @apply text-3xl md:text-4xl font-bold;
+@layer components {
+    h1 {
+        @apply text-4xl md:text-5xl font-bold;
+    }
+
+    h2 {
+        @apply text-3xl md:text-4xl font-bold;
+    }
+
+    p {
+        @apply text-base md:text-lg;
+    }
+    select,
+    input {
+        @apply appearance-none;
+    }
+    input[type='date']::-webkit-inner-spin-button,
+    input[type='date']::-webkit-calendar-picker-indicator {
+        display: none;
+        -webkit-appearance: none;
+    }
 }
 
-p {
-    @apply text-base md:text-lg;
+@theme inline {
+    --animate-accordion-down: accordion-down 0.2s ease-out;
+    --animate-accordion-up: accordion-up 0.2s ease-out;
+    @keyframes accordion-down {
+        from {
+            height: 0;
+        }
+        to {
+            height: var(--reka-accordion-content-height);
+        }
+    }
+    @keyframes accordion-up {
+        from {
+            height: var(--reka-accordion-content-height);
+        }
+        to {
+            height: 0;
+        }
+    }
 }

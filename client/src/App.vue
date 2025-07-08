@@ -1,5 +1,6 @@
 <template>
     <div
+        id="scrollable-container"
         class="min-h-screen max-h-screen font-sans antialiased"
         :class="{
             'overflow-hidden': isOverflowHidden,
@@ -16,7 +17,7 @@
 
 <script setup lang="ts">
 import ContainerLayout from './layouts/AppContainerLayout.vue';
-import { useOverflow } from './composables/overflow';
+import { useOverflow } from './composables/useOverflow';
 
 const { isOverflowHidden } = useOverflow();
 </script>

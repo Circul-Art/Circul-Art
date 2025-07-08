@@ -1,14 +1,5 @@
 <template>
-    <section class="py-16">
-        <!-- Titre -->
-        <!-- <div class="mb-12">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4 text-left">
-                Contactez-nous
-            </h2>
-            <p class="text-lg max-w-3xl text-left">
-                Pour toute assistance, n'hésitez pas à nous contacter.
-            </p>
-        </div> -->
+    <section class="py-16 sm:py-20 lg:py-24">
         <hgroup class="mb-12">
             <slot name="subtitle" />
             <h2 class="mb-4">Contactez-nous</h2>

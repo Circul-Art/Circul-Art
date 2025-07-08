@@ -1,18 +1,27 @@
 import { defineStore } from 'pinia';
 import { ref, type Ref } from 'vue';
-import { ProductsService } from '../services/products.service';
 import type { Product } from '../interfaces/product.interface';
 
-export const useProductsStore = defineStore('product', () => {
+export const useProductsStore = defineStore('products', () => {
     const products: Ref<Product[]> = ref([]);
-
-    async function fetchProductsByCategoryUri(categoryUri: string) {
-        products.value =
-            await ProductsService.fetchProductsByCategoryUri(categoryUri);
-    }
+    const product: Ref<Product | null> = ref(null);
+    const isLoading: Ref<boolean> = ref(false);
 
     return {
+        // state
         products,
-        fetchProductsByCategoryUri
+        product,
+        isLoading,
+
+        // actions
+        setProducts(newProducts: Product[]) {
+            products.value = newProducts;
+        },
+        setProduct(newProduct: Product | null) {
+            product.value = newProduct;
+        },
+        setIsLoading(loading: boolean) {
+            isLoading.value = loading;
+        }
     };
 });

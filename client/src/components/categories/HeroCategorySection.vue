@@ -1,6 +1,6 @@
 <template>
     <section
-        class="flex flex-col sm:flex-row h-[93vh] max-h-[93vh] py-2 sm:py-10 sm:gap-8 lg:gap-12 xl:gap-16"
+        class="flex flex-col sm:flex-row h-[calc(100vh-3.5rem)] max-h-[calc(100vh-3.5rem)] overflow-hidden py-2 sm:py-10 sm:gap-8 lg:gap-12 xl:gap-16"
     >
         <div class="flex flex-col gap-5 mb-10 sm:my-auto sm:w-1/2">
             <h1>
@@ -24,13 +24,13 @@
             </div>
         </div>
         <div
-            class="w-full h-auto sm:w-1/2 flex justify-center items-center flex-1"
+            class="h-full w-full sm:w-1/2 flex justify-end items-center flex-1"
         >
             <img
                 :src="placeholderImage"
                 alt=""
                 srcset=""
-                class="w-full h-full sm:h-auto sm:aspect-square"
+                class="w-full h-auto max-h-full aspect-square"
             />
         </div>
     </section>

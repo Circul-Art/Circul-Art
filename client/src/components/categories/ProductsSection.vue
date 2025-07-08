@@ -1,17 +1,11 @@
 <template>
-    <section class="mb-10">
-        <div
-            v-if="productsStore.products.length > 0"
-            class="flex flex-col items-center"
-        >
+    <section class="py-10">
+        <div v-if="products.length > 0" class="flex flex-col items-center">
             <div class="hidden sm:block mb-6 w-full">
                 <FiltersBar />
             </div>
             <div class="mb-10 w-full">
-                <ProductsList
-                    :category="category"
-                    :products="productsStore.products"
-                />
+                <ProductsList :category="category" :products="products" />
             </div>
             <div>
                 <button
@@ -36,26 +30,17 @@
 </template>
 
 <script setup lang="ts">
-import { watch } from 'vue';
 import type { Category } from '../../interfaces/category.interface';
-import { useProductsStore } from '../../stores/products.store';
 import ProductsList from './ProductsList.vue';
 import FiltersBar from './FiltersBar.vue';
 import emptbox from '../../assets/empty-box.svg';
+import { computed } from 'vue';
+import { useProducts } from '../../composables/useProducts';
 
 const props = defineProps<{
     category: Category;
 }>();
 
-const productsStore = useProductsStore();
-
-watch(
-    () => props.category.uri,
-    (newUri) => {
-        if (newUri) {
-            productsStore.fetchProductsByCategoryUri(newUri);
-        }
-    },
-    { immediate: true }
-);
+const categoryUri = computed(() => props.category.uri);
+const { products } = useProducts(categoryUri);
 </script>

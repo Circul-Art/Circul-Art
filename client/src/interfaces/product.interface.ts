@@ -1,9 +1,11 @@
-import type { Subcategory } from './subcategory.interface';
+import type { SubSubcategory } from './sub-subcategory.interface';
 
 export interface Product {
     id: number;
     name: string;
+    uri: string;
     brand: string;
     price: number;
-    subcategory: Subcategory;
+    subsubcategory: SubSubcategory;
+    description?: string;
 }

@@ -2,12 +2,6 @@ import type { RouteRecordRaw } from 'vue-router';
 
 const routes: RouteRecordRaw[] = [
     {
-        path: '/',
-        name: 'Home',
-        component: () => import('../views/Home.vue'),
-        meta: { title: 'Accueil' }
-    },
-    {
         path: '/:pathMatch(.*)*',
         name: 'NotFound',
         component: () => import('../views/NotFound.vue'),
@@ -17,9 +11,25 @@ const routes: RouteRecordRaw[] = [
         }
     },
     {
+        path: '/',
+        name: 'Home',
+        component: () => import('../views/Home.vue'),
+        meta: { title: 'Accueil' }
+    },
+    {
         path: '/categories/:category',
-        name: 'Categories',
-        component: () => import('../views/Categories.vue')
+        children: [
+            {
+                path: '',
+                name: 'Category',
+                component: () => import('../views/Categories.vue')
+            },
+            {
+                path: ':subcategory/:subsubcategory/:product',
+                name: 'ProductDetails',
+                component: () => import('../views/ProductDetails.vue')
+            }
+        ]
     },
     {
         path: '/login',

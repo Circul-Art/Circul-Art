@@ -1,6 +1,6 @@
 <template>
     <footer class="bg-primary py-8">
-        <div class="w-full py-4 mx-auto container px-4">
+        <div class="w-full py-4 mx-auto container px-6 sm:px-8 lg:px-10">
             <div class="flex flex-col lg:flex-row lg:mb-8">
                 <!-- Brand Column -->
                 <div class="mb-8">
