@@ -41,9 +41,9 @@ function isAllSlugsMatch(product: Product): boolean {
     const categoryUri = route.params.category as string;
 
     return (
-        product.subsubcategory.subcategory.category.uri === categoryUri &&
-        product.subsubcategory.subcategory.uri === subcategoryUri &&
-        product.subsubcategory.uri === subsubcategoryUri
+        product.subsubcategory.subcategory.category.name === categoryUri &&
+        product.subsubcategory.subcategory.name === subcategoryUri &&
+        product.subsubcategory.name === subsubcategoryUri
     );
 }
 </script>

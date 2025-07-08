@@ -7,6 +7,7 @@
             <NavbarActions :is-menu-mobile="true" />
         </template>
     </Navbar>
+    <Breadcrumb v-if="!$route.meta.hideBreadcrumb" />
     <slot />
     <Footer />
 </template>

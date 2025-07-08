@@ -28,10 +28,10 @@
                             <ul class="flex flex-col gap-4">
                                 <li
                                     v-for="category in categoriesMock"
-                                    :key="category.uri"
+                                    :key="slugify(category.name)"
                                 >
                                     <router-link
-                                        :to="`/categories/${category.uri}`"
+                                        :to="`/${slugify(category.name)}`"
                                         class="flex items-center"
                                     >
                                         <span
@@ -217,6 +217,7 @@ import chevron from '../../assets/chevron.svg';
 import { categoriesMock } from '../../mock/categories.mock';
 import { watch } from 'vue';
 import { useRoute } from 'vue-router';
+import { slugify } from '../../lib/utils';
 
 const isMenuOpen = ref(false);
 const isMenuProceedClosing = ref(false);

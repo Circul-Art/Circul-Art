@@ -41,6 +41,6 @@ const props = defineProps<{
     category: Category;
 }>();
 
-const categoryUri = computed(() => props.category.uri);
+const categoryUri = computed(() => props.category.name);
 const { products } = useProducts(categoryUri);
 </script>

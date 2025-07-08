@@ -4,8 +4,9 @@ import { categoriesMock } from './categories.mock';
 export const subcategoriesMock: Subcategory[] = [
     {
         id: 1,
-        name: 'Instruments',
-        uri: 'instruments',
-        category: categoriesMock.find((category) => category.uri === 'music')!
+        name: 'instruments',
+        category: categoriesMock.find(
+            (category) => category.name === 'musique'
+        )!
     }
 ];

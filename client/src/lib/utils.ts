@@ -4,3 +4,15 @@ import { twMerge } from 'tailwind-merge';
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
+
+export function removeAccents(str: string) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+}
+
+export function replaceSpaces(str: string) {
+    return str.replace(/\s+/g, '-');
+}
+
+export function slugify(str: string) {
+    return replaceSpaces(removeAccents(str)).toLowerCase();
+}

@@ -3,7 +3,7 @@
         <li v-for="product in products" :key="product.id">
             <article class="text-on-primary">
                 <router-link
-                    :to="`/categories/${category.uri}/${product.subsubcategory.subcategory.uri}/${product.subsubcategory.uri}/${product.uri}`"
+                    :to="`/${slugify(category.name)}/${slugify(product.subsubcategory.subcategory.name)}/${slugify(product.subsubcategory.name)}/${slugify(product.name)}`"
                     class="flex flex-col justify-center items-center text-center"
                 >
                     <div class="aspect-square w-full h-auto mb-3">
@@ -35,6 +35,7 @@
 <script setup lang="ts">
 import type { Category } from '../../interfaces/category.interface';
 import type { Product } from '../../interfaces/product.interface';
+import { slugify } from '../../lib/utils';
 import placeholderImage from '../../assets/placeholder-img.jpg';
 
 defineProps<{

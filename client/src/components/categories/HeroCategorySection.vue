@@ -1,6 +1,6 @@
 <template>
     <section
-        class="flex flex-col sm:flex-row h-[calc(100vh-3.5rem)] max-h-[calc(100vh-3.5rem)] overflow-hidden py-2 sm:py-10 sm:gap-8 lg:gap-12 xl:gap-16"
+        class="flex flex-col sm:flex-row h-[calc(100vh-3.5rem)] max-h-[calc(100vh-3.5rem)] overflow-hidden py-2 sm:pb-10 sm:gap-8 lg:gap-12 xl:gap-16"
     >
         <div class="flex flex-col gap-5 mb-10 sm:my-auto sm:w-1/2">
             <h1>
