@@ -3,9 +3,9 @@
         <p class="text-sm font-semibold mb-4">Catégories</p>
         <nav>
             <ul class="flex flex-col gap-4">
-                <li v-for="category in categoriesMock" :key="category.uri">
+                <li v-for="category in categoriesMock" :key="category.name">
                     <router-link
-                        :to="`/categories/${category.uri}`"
+                        :to="`/${slugify(category.name)}`"
                         class="flex items-center"
                     >
                         <span class="text-on-primary first-letter:uppercase">
@@ -22,5 +22,6 @@
 </template>
 
 <script setup lang="ts">
+import { slugify } from '../../lib/utils';
 import { categoriesMock } from '../../mock/categories.mock';
 </script>

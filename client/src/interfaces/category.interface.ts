@@ -3,6 +3,5 @@ export interface Category {
     name: string;
     article_def: string;
     article_part: string;
-    uri: string;
     hero_paragraph: string;
 }

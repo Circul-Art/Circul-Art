@@ -5,33 +5,29 @@ export const subSubcategoriesMock: SubSubcategory[] = [
     {
         id: 1,
         subcategory: subcategoriesMock.find(
-            (subcategory) => subcategory.uri === 'instruments'
+            (subcategory) => subcategory.name === 'instruments'
         )!,
-        name: 'guitares',
-        uri: 'guitars'
+        name: 'guitares'
     },
     {
         id: 2,
         subcategory: subcategoriesMock.find(
-            (subcategory) => subcategory.uri === 'instruments'
+            (subcategory) => subcategory.name === 'instruments'
         )!,
-        name: 'batterie',
-        uri: 'drums'
+        name: 'batterie'
     },
     {
         id: 3,
         subcategory: subcategoriesMock.find(
-            (subcategory) => subcategory.uri === 'instruments'
+            (subcategory) => subcategory.name === 'instruments'
         )!,
-        name: 'piano',
-        uri: 'piano'
+        name: 'piano'
     },
     {
         id: 4,
         subcategory: subcategoriesMock.find(
-            (subcategory) => subcategory.uri === 'instruments'
+            (subcategory) => subcategory.name === 'instruments'
         )!,
-        name: 'basse',
-        uri: 'bass'
+        name: 'basse'
     }
 ];

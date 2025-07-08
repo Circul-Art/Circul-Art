@@ -14,10 +14,10 @@ const routes: RouteRecordRaw[] = [
         path: '/',
         name: 'Home',
         component: () => import('../views/Home.vue'),
-        meta: { title: 'Accueil' }
+        meta: { title: 'Accueil', hideBreadcrumb: true }
     },
     {
-        path: '/categories/:category',
+        path: '/:category',
         children: [
             {
                 path: '',
