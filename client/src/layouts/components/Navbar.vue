@@ -1,10 +1,15 @@
 <template>
     <header
         class="bg-primary sticky top-0 z-50"
-        :class="isMenuMobileOpen ? 'h-screen' : 'h-[7vh]'"
+        :class="isMenuMobileOpen ? 'h-screen' : 'h-14'"
     >
-        <div class="py-4 flex flex-col h-full mx-auto container px-4">
-            <div class="flex flex-row justify-between items-center">
+        <div
+            class="flex flex-col justify-center h-full mx-auto container px-6 sm:px-8 lg:px-10"
+        >
+            <div
+                class="flex flex-row justify-between items-center"
+                :class="isMenuMobileOpen ? 'h-14' : 'h-full'"
+            >
                 <div class="flex justify-center items-center h-8">
                     <router-link
                         to="/"
@@ -76,7 +81,7 @@ import logo from '../../assets/logo.svg';
 import burger from '../../assets/burger.svg';
 import xmark from '../../assets/xmark.svg';
 import { ref } from 'vue';
-import { useOverflow } from '../../composables/overflow';
+import { useOverflow } from '../../composables/useOverflow';
 import MenuCategories from './MenuCategories.vue';
 import { useRoute } from 'vue-router';
 import { watch } from 'vue';

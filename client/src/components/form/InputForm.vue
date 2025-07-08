@@ -38,8 +38,9 @@
             :type="type"
             :placeholder="placeholder"
             :value="modelValue"
+            :min="type === 'number' ? min : undefined"
             class="w-full px-4 py-2 border"
-            :class="errorState ? 'border-error' : 'border'"
+            :class="errorState ? 'border-error' : ''"
             @input="handleInput"
             @blur="$emit('blur')"
         />
@@ -78,6 +79,10 @@ defineProps({
     errorState: {
         type: Boolean,
         default: false
+    },
+    min: {
+        type: Number,
+        default: 0
     }
 });
 

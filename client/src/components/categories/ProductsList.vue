@@ -3,7 +3,7 @@
         <li v-for="product in products" :key="product.id">
             <article class="text-on-primary">
                 <router-link
-                    :to="`/categories/${category.uri}/product/${product.id}`"
+                    :to="`/categories/${category.uri}/${product.subsubcategory.subcategory.uri}/${product.subsubcategory.uri}/${product.uri}`"
                     class="flex flex-col justify-center items-center text-center"
                 >
                     <div class="aspect-square w-full h-auto mb-3">

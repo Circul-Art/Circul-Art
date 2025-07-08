@@ -37,31 +37,24 @@
             <select
                 :id="inputName"
                 :value="modelValue"
-                class="w-full px-4 py-2 border appearance-none pr-10"
+                class="w-full px-4 py-2 border pr-10"
                 :class="errorState ? 'border-error' : 'border'"
                 @change="handleChange"
-                @blur="$emit('blur')"
+                @blur="
+                    $emit('blur');
+                    openSelect = false;
+                "
+                @click="openSelect = !openSelect"
+                @select="openSelect = false"
+                @keydown.enter="openSelect = !openSelect"
             >
                 <slot></slot>
             </select>
-            <div
-                class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none"
-            >
-                <svg
-                    class="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M19 9l-7 7-7-7"
-                    ></path>
-                </svg>
-            </div>
+            <InlineSvg
+                v-flip-vertical="openSelect"
+                :src="chevron"
+                class="absolute top-1/2 -translate-y-1/2 right-4 pointer-events-none"
+            />
         </div>
         <p v-if="errorState" class="mt-1 text-sm text-error">
             {{ errorMessage }}
@@ -70,6 +63,10 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+import chevron from '../../assets/chevron.svg';
+
+const openSelect = ref(false);
 defineProps({
     labelValue: {
         type: String,

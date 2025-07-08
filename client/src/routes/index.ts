@@ -5,7 +5,12 @@ import { loadLayoutMiddleware } from './middleware/loadLayoutMiddleware';
 
 const router = createRouter({
     history: createWebHistory(),
-    routes
+    routes,
+    scrollBehavior() {
+        document.getElementById('scrollable-container')?.scrollTo({
+            top: 0
+        });
+    }
 });
 
 router.beforeEach(async (to, _from, next) => {
